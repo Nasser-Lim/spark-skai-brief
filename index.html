@@ -385,12 +385,22 @@ nav a.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--sbs)}
   .gates div{padding:10px 12px}
   footer a{display:inline-block;padding:10px 4px}
 }
+
+#frames{padding-top:8px}
+.fh{font-size:20px;margin:0 0 6px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tri figure{margin:0;cursor:zoom-in;position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.tri img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#dfe7ec}
+.tri figcaption{padding:10px 14px 12px;display:flex;flex-direction:column;gap:1px}
+.tri figcaption b{font-size:14.5px}.tri figcaption span{font-size:12.5px;color:var(--ink2)}
+.tri figure.hl{border:2px solid var(--sbs)}
+@media (max-width:640px){#frames{padding-top:0}.tri{grid-auto-flow:column;grid-auto-columns:84%;grid-template-columns:none;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:2px 16px 6px;scrollbar-width:none}.tri figure{scroll-snap-align:start}}
 </style>
 </head>
 <body>
 <nav><div class="wrap">
   <b>SBS × SKAI</b>
-  <a href="#why">배경</a><a href="#use">두 갈래</a><a href="#idea">지금 실험</a><a href="#flow">워크플로우</a><a href="#task">로봇 과제 3D</a><a href="#result">최신 결과</a><a href="#synth">합성</a><a href="#retarget">리타게팅</a><a href="#plan">검증 순서</a><a href="#collab">협업</a><a href="#outlook">기대·위험</a>
+  <a href="#why">배경</a><a href="#use">두 갈래</a><a href="#idea">지금 실험</a><a href="#flow">워크플로우</a><a href="#task">로봇 과제 3D</a><a href="#result">최신 결과</a><a href="#synth">합성</a><a href="#retarget">리타게팅</a><a href="#plan">검증 순서</a><a href="#collab">협업</a>
 </div></nav>
 
 <header class="wrap">
@@ -479,6 +489,18 @@ nav a.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--sbs)}
   <div class="key"><b>핵심 질문은 하나입니다.</b> 같은 양의 로봇 연습을 시켰을 때, SBS 영상을 본 AI에서 출발한 로봇이 그렇지 않은 로봇보다 더 자주 성공하는가?</div>
 </div></section>
 
+<section id="frames" class="tight"><div class="wrap">
+  <h3 class="fh">같은 장면, 세 가지 모습</h3>
+  <p class="sub">같은 순간을 원본·기본 Cosmos·SBS로 학습한 Cosmos가 각각 어떻게 복원했는지 나란히 놓았습니다.</p>
+  <div class="tri">
+    <figure class="zoomable" data-zoom="media/cmp_ref.jpg" data-kind="img" tabindex="0" role="button" aria-label="원본 장면 크게 보기"><img src="media/cmp_ref.jpg" alt="원본 장면" loading="lazy"><figcaption><b>원본 장면</b><span>정답</span></figcaption><span class="zoom-ic" aria-hidden="true">⤢</span></figure>
+    <figure class="zoomable" data-zoom="media/cmp_base.jpg" data-kind="img" tabindex="0" role="button" aria-label="기본 Cosmos 복원 크게 보기"><img src="media/cmp_base.jpg" alt="기본 Cosmos 복원" loading="lazy"><figcaption><b>기본 Cosmos 복원</b><span>SBS 학습 전</span></figcaption><span class="zoom-ic" aria-hidden="true">⤢</span></figure>
+    <figure class="zoomable hl" data-zoom="media/cmp_sbs.jpg" data-kind="img" tabindex="0" role="button" aria-label="SBS LoRA 복원 크게 보기"><img src="media/cmp_sbs.jpg" alt="SBS LoRA 복원" loading="lazy"><figcaption><b>SBS LoRA 복원</b><span>SBS 영상 학습 후</span></figcaption><span class="zoom-ic" aria-hidden="true">⤢</span></figure>
+  </div>
+  <p class="one">같은 흐린 입력을 복원한 한 장면입니다. 육안으로는 거의 같고 차이는 숫자(오차 −0.34%)로만 보입니다. 이 장면은 사전에 정해 둔 평가 영상 중 하나이며 골라 낸 좋은 사례가 아닙니다.</p>
+</div></section>
+
+
 <section id="flow"><div class="wrap">
   <p class="eyebrow">04 · 워크플로우</p>
   <h2>전체 흐름과 지금 위치</h2>
@@ -564,7 +586,12 @@ nav a.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--sbs)}
       <p class="one">처음(v2)엔 도구가 346N으로 짓누르고 완주 0%였습니다. 통과하면 로봇 학습을 시작합니다.</p>
     </div>
   </div>
-  
+  <figure class="cmp zoomable" data-zoom="media/comparison_clip_000_00.jpg" data-kind="img" tabindex="0" role="button" aria-label="영상 AI 복원 비교 이미지 크게 보기">
+    <figcaption class="cmph"><b>참고: 영상 AI가 복원한 SBS 장면</b><span>같은 흐린 입력을 두 모델이 복원 — 육안으로는 거의 같고 차이는 숫자로만 보입니다</span></figcaption>
+    <img src="media/comparison_clip_000_00.jpg" alt="원본, 기본 모델 복원, SBS 학습 모델 복원을 나란히 놓은 비교 이미지" loading="lazy">
+    <div class="cap"><span>원본 장면</span><span>기본 AI 복원</span><span>SBS 학습 AI 복원</span></div>
+    <span class="zoom-ic" aria-hidden="true">⤢</span>
+  </figure>
 </div></section>
 
 <section id="synth"><div class="wrap">
@@ -744,24 +771,6 @@ nav a.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--sbs)}
   <div class="roles">
     <div class="rl s"><b>SBS</b><span>영상 선별 · 학습 형식 변환 · 비교 실험 설계와 평가 · 권리 관리</span></div>
     <div class="rl k"><b>SKAI</b><span>물체·작업대 3D 자산 · 장면 디지털 트윈 · 재질·접촉 물성 · 합성 렌더링</span></div>
-  </div>
-</div></section>
-
-<section id="outlook"><div class="wrap">
-  <p class="eyebrow">11 · 기대 결과와 위험</p>
-  <h2>잘 되면 남는 것, 처음부터 조심할 것</h2>
-  <p class="sub">결과물과 위험을 함께 관리합니다.</p>
-  <div class="ol2">
-    <div class="ol good"><h3>잘 되면 남는 것</h3>
-      <div><b>검증된 데이터</b><span>로봇 학습 효과가 확인된 방송 유래 양손 조작 데이터와 그 근거</span></div>
-      <div><b>SBS × SKAI 합성 파이프라인</b><span>방송 영상 → 3D → 증강. 실물 기반 Real-to-Sim 3D 자산으로도 이어짐</span></div>
-      <div><b>비어 있던 질문의 답</b><span>“3인칭 단안 방송 영상도 손 조작 학습 데이터가 되는가”</span></div>
-    </div>
-    <div class="ol risk"><h3>처음부터 조심할 것</h3>
-      <div><b>권리와 계보</b><span>외부 GPU 전송·파트너 공유 범위를 매번 정하고, 합성본도 원본에서 나온 파생물로 기록</span></div>
-      <div><b>비용</b><span>작은 비교부터. 큰 모델 학습은 공개 가중치에서 짧게 추가 학습하는 방식으로 시작</span></div>
-      <div><b>해석 과장</b><span>영상 복원 점수 · 시뮬레이터 성공률 · 실제 로봇 성능은 서로 다른 것</span></div>
-    </div>
   </div>
 </div></section>
 
@@ -968,7 +977,7 @@ nav a.on{color:var(--ink);font-weight:700;box-shadow:inset 0 -2px 0 var(--sbs)}
 
 // ── 모바일: 카드 묶음은 옆으로 넘기는 슬라이더, 아래에 위치 점 표시
 (function(){
-  const sel='.why3,.stages,.flow,.synth,.rmeth,.steps3,.road,.collab,.media2';
+  const sel='.tri,.why3,.stages,.flow,.synth,.rmeth,.steps3,.road,.collab,.media2';
   const mq=matchMedia('(max-width:640px)');
   document.querySelectorAll(sel).forEach(box=>{
     const n=box.children.length; if(n<2) return;
