@@ -632,7 +632,7 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
 (function(){
   const wrap=document.getElementById('sim');
   if(!window.THREE){wrap.insertAdjacentHTML('beforeend','<p style="position:absolute;inset:auto 0 45% 0;text-align:center;color:#46535f">3D를 불러오지 못했습니다</p>');return;}
-  let renderer; try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});}catch(e){return;}
+  let renderer; try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});}catch(e){wrap.insertAdjacentHTML('beforeend','<p style="position:absolute;left:0;right:0;top:42%;margin:0;padding:0 24px;text-align:center;color:#46535f;font-size:14px">이 브라우저에서 3D를 표시하지 못했습니다.<br>브라우저 설정에서 <b>하드웨어 가속</b>을 켜거나 다른 브라우저로 열어 주세요.</p>');return;}
   renderer.setPixelRatio(Math.min(devicePixelRatio||1,2)); wrap.prepend(renderer.domElement);
   const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(34,1,.05,50);
   scene.add(new THREE.HemisphereLight(0xffffff,0xb9c8d2,.85));
@@ -693,7 +693,7 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
     requestAnimationFrame(frame);
     const dt=(now-last)/1000; last=now; if(!visible) return;
     if(auto&&!reduce) yaw+=dt*.12;
-    const t=reduce?3.6:((now-t0)/1000)%T;
+    const t=((now-t0)/1000)%T;
     // 단계: 0–1.4 접근, 1.4–2 접촉, 2–5.6 따라가기, 5.6–6.6 들어올림, 6.6–8 대기
     const down=t<1.4?ease(t/1.4):t<5.6?1:t<6.6?1-ease((t-5.6)/1):0;
     const p=t<2?0:t<5.6?ease((t-2)/3.6):t<6.6?1:0;
@@ -723,7 +723,7 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
 // ── 리타게팅 3D: 사람 손목 경로 → 로봇 손끝 경로
 (function(){
   const wrap=document.getElementById('rt'); if(!wrap||!window.THREE) return;
-  let renderer; try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});}catch(e){return;}
+  let renderer; try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});}catch(e){wrap.insertAdjacentHTML('beforeend','<p style="position:absolute;left:0;right:0;top:42%;margin:0;padding:0 24px;text-align:center;color:#46535f;font-size:14px">이 브라우저에서 3D를 표시하지 못했습니다.<br>브라우저 설정에서 <b>하드웨어 가속</b>을 켜거나 다른 브라우저로 열어 주세요.</p>');return;}
   renderer.setPixelRatio(Math.min(devicePixelRatio||1,2)); wrap.prepend(renderer.domElement);
   const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(34,1,.05,50);
   scene.add(new THREE.HemisphereLight(0xffffff,0xb9c8d2,.85));
@@ -793,7 +793,7 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
   function frame(now){
     requestAnimationFrame(frame); const dt=(now-last)/1000; last=now; if(!vis) return;
     if(auto&&!reduce) yaw=Math.sin((now-t0)/6000)*.35;
-    const t=reduce?3:((now-t0)/1000)%T;
+    const t=((now-t0)/1000)%T;
     if(t<prevT){trH.n=0;trR.n=0;trH.g.setDrawRange(0,0);trR.g.setDrawRange(0,0);} prevT=t;
     const [w,open]=wristAt(t);
     hand.position.copy(w); fingers.forEach(g=>g.rotation.x=(1-open)*1.25); th.rotation.y=(1-open)*.9;
