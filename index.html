@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>사람 영상에서 로봇으로</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{
+  --ink:#16202b; --ink2:#46535f; --mut:#7a8691; --line:#dde3e8; --bg:#f4f6f5; --card:#ffffff;
+  --sbs:#0d5bd7; --sbs-soft:#e5eefc; --robot:#0f8a6c; --robot-soft:#e2f4ee; --warm:#d9771f; --warm-soft:#fdf0e3;
+  --bad:#c8463a; --bad-soft:#fbe9e7; --gold:#b98a14;
+  --r:14px; --mono:'IBM Plex Mono',ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif;word-break:keep-all}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+a{color:var(--sbs)}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+nav{position:sticky;top:0;z-index:20;background:rgba(244,246,245,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:18px;height:52px;overflow-x:auto;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav b{font-weight:900;letter-spacing:.3px;white-space:nowrap}
+nav a{color:var(--ink2);text-decoration:none;font-size:14px;white-space:nowrap;padding:6px 2px}
+nav a:hover,nav a:focus-visible{color:var(--ink)}
+section{padding:64px 0 24px}
+.eyebrow{font:500 12.5px var(--mono);letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin:0 0 10px}
+h1{font-size:clamp(30px,5vw,50px);line-height:1.22;margin:0 0 18px;font-weight:900;text-wrap:balance;letter-spacing:-.5px}
+h2{font-size:clamp(24px,3.4vw,32px);line-height:1.3;margin:0 0 10px;font-weight:900;text-wrap:balance;letter-spacing:-.3px}
+h3{font-size:18px;margin:0 0 6px}
+.lead{font-size:18px;color:var(--ink2);max-width:62ch;margin:0}
+.sub{color:var(--ink2);max-width:66ch;margin:0 0 26px}
+.hl-sbs{color:var(--sbs)} .hl-robot{color:var(--robot)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+.note{font-size:13.5px;color:var(--mut)}
+/* hero */
+header{padding:56px 0 30px}
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:34px;align-items:center}
+.chips{display:flex;gap:10px;margin-bottom:22px;align-items:center}
+.chip{font:700 13px var(--mono);padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:#fff}
+.analogy{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+.analogy p{margin:0 0 14px;color:var(--ink2)}
+.analogy .q{font-size:20px;font-weight:700;color:var(--ink);line-height:1.5;margin:0}
+.analogy .eq{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:16px;font-size:14px}
+.analogy .eq div{border-radius:10px;padding:10px 12px;text-align:center}
+.analogy .eq .h{background:var(--sbs-soft);color:var(--sbs)} .analogy .eq .r{background:var(--robot-soft);color:var(--robot)}
+.analogy .eq i{font-style:normal;color:var(--mut);font-size:20px}
+/* idea: three stages */
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:0;align-items:stretch}
+.stage{position:relative;padding:22px 22px 22px;background:#fff;border:1px solid var(--line)}
+.stage:first-child{border-radius:var(--r) 0 0 var(--r)}
+.stage:last-child{border-radius:0 var(--r) var(--r) 0}
+.stage+.stage{border-left:0}
+.stage .num{font:500 12px var(--mono);color:var(--mut)}
+.stage h3{margin-top:6px}
+.stage p{margin:6px 0 0;color:var(--ink2);font-size:14.5px}
+.stage .tag{display:inline-block;margin-top:12px;font-size:12.5px;padding:3px 10px;border-radius:999px}
+.stage svg{width:46px;height:46px;display:block;margin-bottom:10px}
+.stage:not(:last-child)::after{content:"";position:absolute;right:-12px;top:50%;width:22px;height:22px;background:#fff;border-top:1px solid var(--line);border-right:1px solid var(--line);transform:translateY(-50%) rotate(45deg);z-index:2}
+.key{margin-top:18px;padding:16px 18px;border-radius:12px;background:var(--warm-soft);color:#7a4510;font-size:15px}
+/* workflow */
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;counter-reset:f}
+.fstep{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 14px 16px;position:relative;display:flex;flex-direction:column;gap:6px;min-width:0}
+.fstep .lane{font:500 11px var(--mono);letter-spacing:.8px;text-transform:uppercase}
+.fstep b{font-size:15px;line-height:1.35}
+.fstep span{font-size:13px;color:var(--ink2);line-height:1.5}
+.fstep .st{margin-top:auto;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;align-self:flex-start}
+.done{background:var(--robot-soft);color:var(--robot)} .doing{background:var(--warm-soft);color:var(--warm)} .todo{background:#eef1f3;color:var(--mut)}
+.fstep.sbs{border-top:4px solid var(--sbs)} .fstep.sim{border-top:4px solid var(--robot)} .fstep.end{border-top:4px solid var(--gold)}
+.lanes{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0 0;font-size:13px;color:var(--ink2)}
+.lanes i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+/* two groups */
+.groups{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.grp{border-radius:var(--r);padding:20px;border:1px solid var(--line);background:#fff}
+.grp h3{display:flex;align-items:center;gap:8px}
+.grp .pill{font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:12px;font-size:14px}
+.chain span{padding:7px 11px;border-radius:9px;background:#f1f4f6;border:1px solid var(--line)}
+.chain span.sb{background:var(--sbs-soft);border-color:#bcd2f7;color:var(--sbs);font-weight:700}
+.chain em{font-style:normal;color:var(--mut)}
+.verdict{margin-top:14px;text-align:center;font-weight:700;padding:14px;border-radius:12px;background:#fff;border:1px dashed #c7cfd6}
+/* 3D */
+.three{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;align-items:stretch}
+#sim{position:relative;height:440px;border-radius:var(--r);overflow:hidden;background:linear-gradient(180deg,#cfe5f2,#eef4f6 70%);border:1px solid var(--line);touch-action:none;cursor:grab}
+#sim canvas{display:block;width:100%;height:100%}
+#sim .lab{position:absolute;left:0;top:0;pointer-events:none;font-size:12.5px;font-weight:700;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.92);border:1px solid var(--line);white-space:nowrap;transform:translate(-50%,-100%)}
+#sim .hud{position:absolute;left:12px;bottom:12px;display:flex;gap:8px;flex-wrap:wrap}
+#sim .hud div{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:12.5px;font-family:var(--mono)}
+#sim .hint{position:absolute;right:12px;top:10px;font-size:12px;color:var(--ink2);background:rgba(255,255,255,.8);padding:3px 8px;border-radius:7px}
+#sim .phase{position:absolute;left:12px;top:10px;font-size:13px;font-weight:700;background:var(--ink);color:#fff;padding:4px 10px;border-radius:7px}
+.side{display:flex;flex-direction:column;gap:12px}
+.rule{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;font-size:14.5px}
+.rule .ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font:700 13px var(--mono)}
+.real{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.real figure{margin:0}
+.real video{width:100%;border-radius:10px;display:block;background:#dfe7ec;aspect-ratio:16/9;object-fit:cover}
+.real figcaption{font-size:12.5px;color:var(--mut);margin-top:4px}
+/* results */
+.res{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.test{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 16px}
+.test div{border-radius:10px;padding:10px;text-align:center;font-size:13px;line-height:1.45}
+.chart text{font-family:'Noto Sans KR',sans-serif}
+.bigs{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0 10px}
+.big{flex:1 1 140px;border-radius:12px;padding:12px 14px}
+.big .v{font:700 28px var(--mono);letter-spacing:-.5px}
+.big .l{font-size:13px}
+.cmp img{width:100%;border-radius:10px;display:block;border:1px solid var(--line)}
+.cmp .cap{display:grid;grid-template-columns:repeat(3,1fr);font-size:12px;color:var(--ink2);text-align:center;margin-top:4px}
+.honest{margin-top:12px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--ink2)}
+.honest div::before{content:"—  ";color:var(--mut)}
+.att{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;margin:10px 0 4px}
+.att div{height:34px;border-radius:7px;display:grid;place-items:center;font:500 11.5px var(--mono)}
+.ok{background:var(--robot);color:#fff} .ng{background:var(--bad-soft);color:var(--bad)}
+.meter{margin:10px 0}
+.meter .t{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+.bar{position:relative;height:14px;border-radius:7px;background:#eef1f3;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px}
+.bar b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:12px;font-size:13.5px}
+.checks div{padding:7px 10px;border-radius:9px}
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.rstep{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.rstep .st{align-self:flex-start;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px}
+.rstep b{font-size:15px}
+.rstep span{font-size:13px;color:var(--ink2)}
+.extra{margin-top:12px;padding:14px 16px;border-radius:12px;border:1px dashed #c7cfd6;background:#fff;font-size:14.5px}
+/* collaboration */
+.collab{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.co{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px}
+.co .n{font:500 12px var(--mono);color:var(--mut)}
+.co h3{font-size:17px;margin:0}
+.co .pair{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12.5px}
+.co .pair div{padding:8px 9px;border-radius:9px;line-height:1.45}
+.co .pair .s{background:var(--sbs-soft);color:#123f8a}
+.co .pair .k{background:var(--robot-soft);color:#0b5a47}
+.co p{margin:0;font-size:14px;color:var(--ink2)}
+.co.feat{border:2px solid var(--sbs)}
+.co .badge{align-self:flex-start;font-size:11.5px;font-weight:700;background:var(--sbs);color:#fff;padding:2px 9px;border-radius:999px}
+.next{margin-top:18px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding:20px 22px;border-radius:var(--r);background:var(--ink);color:#fff}
+.next b{font-size:18px}
+.next p{margin:0;color:#c9d3db;font-size:14.5px}
+footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
+:focus-visible{outline:2px solid var(--sbs);outline-offset:2px}
+@media (max-width:980px){
+  .hero,.three,.res{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(3,1fr)}
+  .road{grid-template-columns:repeat(2,1fr)}
+  
+}
+@media (max-width:640px){
+  .wrap{padding-inline:16px}
+  section{padding:44px 0 12px}
+  .stages{grid-template-columns:1fr}
+  .stage,.stage:first-child,.stage:last-child{border-radius:0;border-left:1px solid var(--line)}
+  .stage+.stage{border-top:0}
+  .stage:first-child{border-radius:var(--r) var(--r) 0 0}.stage:last-child{border-radius:0 0 var(--r) var(--r)}
+  .stage:not(:last-child)::after{right:50%;top:auto;bottom:-12px;transform:translateX(50%) rotate(135deg)}
+  .flow{grid-template-columns:1fr 1fr}
+  .groups,.collab,.road,.checks{grid-template-columns:1fr}
+  #sim{height:340px}
+  .att{grid-template-columns:repeat(4,1fr)}
+  .test{grid-template-columns:1fr}
+  .next{grid-template-columns:1fr}
+}
+
+/* 부제 한 줄 */
+.sub{max-width:none}
+@media (min-width:900px){.sub{white-space:nowrap}}
+/* 큰 영상·이미지 */
+.media2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.zoomable{position:relative;margin:0;cursor:zoom-in;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.zoomable video,.zoomable img{width:100%;display:block;background:#dfe7ec}
+.media2 video{aspect-ratio:16/9;object-fit:cover}
+.zoomable figcaption{padding:12px 16px 14px;display:flex;flex-direction:column;gap:2px}
+.zoomable figcaption b{font-size:15px}
+.zoomable figcaption span{font-size:13px;color:var(--ink2)}
+.zoom-ic{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:9px;background:rgba(22,32,43,.72);color:#fff;display:grid;place-items:center;font-size:17px}
+.zoomable:hover .zoom-ic{background:var(--ink)}
+.cmp{margin-top:18px}
+.cmp .cmph{padding:16px 18px 12px}
+.cmp img{border-top:1px solid var(--line)}
+.cmp .cap{display:grid;grid-template-columns:repeat(3,1fr);font-size:13px;color:var(--ink2);text-align:center;padding:8px 0 12px}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(10,14,20,.95);display:flex;align-items:center;justify-content:center;padding:24px}
+.lb[hidden]{display:none}
+.lbin{max-width:min(1500px,96vw);width:100%;text-align:center}
+.lbin video,.lbin img{max-width:100%;max-height:82vh;border-radius:12px;display:block;margin:0 auto;background:#000}
+.lbin p{color:#dfe6ec;margin:12px 0 0;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.lbx{position:absolute;right:16px;top:12px;width:46px;height:46px;border-radius:12px;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:28px;cursor:pointer}
+/* 간결한 결과 */
+.rhead{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.rk{font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+.one{margin:10px 0 0;font-size:13.5px;color:var(--ink2)}
+.score{display:flex;align-items:center;gap:18px;margin:10px 0 4px}
+.sv{font:700 46px var(--mono);color:var(--robot);line-height:1}
+.sv small{font-size:20px;color:var(--mut)}
+/* 합성 증강 */
+.spectrum{display:flex;align-items:center;gap:12px;font-size:12.5px;color:var(--ink2);margin:0 0 12px}
+.spectrum i{flex:1;height:6px;border-radius:3px;background:linear-gradient(90deg,#0f8a6c,#0d5bd7,#8b5cf6)}
+.synth{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.sy{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:7px;position:relative}
+.sy svg{width:100%;height:auto;display:block;border-radius:8px}
+.sy h3{font-size:16.5px;margin:4px 0 0}
+.sy p{margin:0;font-size:14px;color:var(--ink2)}
+.sy .lv{font:500 11.5px var(--mono);color:var(--mut)}
+.sy .ex{font-size:12.5px;color:var(--ink2);background:#f3f5f7;border-radius:8px;padding:7px 9px}
+.sy .sk{font-size:12.5px;color:#0b5a47;background:var(--robot-soft);border-radius:8px;padding:7px 9px}
+.sy.feat{border:2px solid var(--robot)}
+.sy .badge{order:-1;align-self:flex-start;font-size:11.5px;font-weight:700;background:var(--robot);color:#fff;padding:2px 9px;border-radius:999px}
+.sflow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:center;margin-top:16px}
+.sflow div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;height:100%}
+.sflow b{font-size:14.5px}.sflow span{font-size:12.5px;color:var(--ink2)}
+.sflow i{font-style:normal;color:var(--mut);font-size:18px}
+/* 맞물림 */
+.match{display:grid;grid-template-columns:1fr 70px 1fr;gap:0;align-items:stretch;margin-bottom:18px}
+.mcol{border-radius:var(--r);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.mcol h3{font-size:15px;margin:0 0 2px}
+.mcol div{background:#fff;border-radius:9px;padding:8px 11px;font-size:14px}
+.mcol.s{background:var(--sbs-soft)} .mcol.s h3{color:var(--sbs)}
+.mcol.k{background:var(--robot-soft)} .mcol.k h3{color:var(--robot)}
+.mmid svg{width:100%;height:100%}
+@media (max-width:980px){.synth{grid-template-columns:1fr 1fr}.sflow{grid-template-columns:1fr 1fr}.sflow i{display:none}}
+@media (max-width:640px){.media2,.synth,.sflow{grid-template-columns:1fr}.match{grid-template-columns:1fr}.mmid{display:none}.mcol.s{margin-bottom:10px}.score{gap:12px}.sv{font-size:38px}}
+
+/* 리타게팅 */
+#rt{position:relative;height:440px;border-radius:var(--r);overflow:hidden;background:linear-gradient(180deg,#e6eef8,#f3f6f4 70%);border:1px solid var(--line);touch-action:none;cursor:grab}
+#rt canvas{display:block;width:100%;height:100%}
+#rt .lab{position:absolute;left:0;top:0;pointer-events:none;font-size:12.5px;font-weight:700;padding:4px 9px;border-radius:8px;background:rgba(255,255,255,.92);border:1px solid var(--line);white-space:nowrap;transform:translate(-50%,-100%)}
+#rt .hud{position:absolute;left:12px;bottom:12px;display:flex;gap:8px;flex-wrap:wrap}
+#rt .hud div{background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:9px;padding:6px 10px;font-size:12.5px;font-weight:700}
+#rt .hint{position:absolute;right:12px;top:10px;font-size:12px;color:var(--ink2);background:rgba(255,255,255,.8);padding:3px 8px;border-radius:7px}
+#rt .phase{position:absolute;left:12px;top:10px;font-size:13px;font-weight:700;background:var(--ink);color:#fff;padding:4px 10px;border-radius:7px}
+.rsteps{display:flex;flex-direction:column;gap:7px}
+.rsteps div{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;background:#f3f5f7}
+.rsteps b{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--sbs);color:#fff;font:700 13px var(--mono)}
+.rsteps span{font-size:14px;font-weight:700;display:flex;flex-direction:column}
+.rsteps small{font-weight:400;font-size:12.5px;color:var(--ink2)}
+.rsteps .hot{background:var(--robot-soft)} .rsteps .hot b{background:var(--robot)}
+.rmeth{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:16px}
+.rm{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:5px}
+.rm svg{width:100%;height:46px}
+.rm b{font-size:14.5px}.rm span{font-size:12.5px;color:var(--ink2);line-height:1.5}
+.rm em{font-style:normal;font-size:11.5px;font-weight:700;align-self:flex-start;padding:2px 8px;border-radius:999px;background:var(--robot-soft);color:var(--robot);margin-top:auto}
+.rm em.no{background:#eef1f3;color:var(--mut)}
+.rm.pick{border-color:#a9dcc9}
+/* 두 쓰임새 */
+.uses{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.use{border-radius:var(--r);padding:20px;border:1px solid var(--line);background:#fff;display:flex;flex-direction:column;gap:10px}
+.use.u1{border-top:5px solid var(--sbs)} .use.u2{border-top:5px solid var(--robot)}
+.uh{display:flex;flex-direction:column;gap:2px}
+.ut{font:700 12.5px var(--mono);letter-spacing:.3px}
+.u1 .ut{color:var(--sbs)} .u2 .ut{color:var(--robot)}
+.uh b{font-size:19px}
+.need{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.need span{padding:6px 11px;border-radius:9px;background:#f1f4f6;border:1px solid var(--line);font-size:13.5px;font-weight:700}
+.need span.must{background:var(--warm-soft);border-color:#f2c99b;color:#9a4f0c}
+.need i{font-style:normal;color:var(--mut)}
+.use p{margin:0;font-size:14.5px;color:var(--ink2)}
+.refs{font-size:12.5px;color:var(--mut);border-top:1px dashed var(--line);padding-top:8px}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--ink2);margin:6px 0 4px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.pathcmp{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.pc{display:grid;grid-template-columns:70px 1fr;gap:10px;align-items:center}
+.pt{font:700 13px var(--mono)}
+.pf{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13.5px}
+.pf span{background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 11px}
+.pf span.gl{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:700}
+.pf i{font-style:normal;color:var(--mut)}
+@media (max-width:980px){.rmeth{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.uses{grid-template-columns:1fr}.rmeth{grid-template-columns:1fr 1fr}#rt{height:340px}.pc{grid-template-columns:1fr}}
+
+.uchart{display:flex;flex-direction:column;gap:12px;margin-top:10px;max-width:860px}
+.ur{display:grid;grid-template-columns:180px 1fr;gap:12px;align-items:center}
+.un{font-size:14px;text-align:right}
+.ur.hi .un{font-weight:700}
+.ub{position:relative;display:flex;flex-direction:column;gap:4px;background:repeating-linear-gradient(90deg,transparent 0 calc(33.33% - 1px),#dde3e8 calc(33.33% - 1px) 33.33%)}
+.ub i{display:block;height:13px;border-radius:4px}
+.ub i.a{background:#0d5bd7}.ub i.b{background:#0f8a6c}
+.ub em{position:absolute;left:calc(16.7% + 8px);top:-2px;font-style:normal;font-size:12px;font-weight:700;color:#c8463a}
+.ur.ax .ub{background:none;height:16px}
+.ur.ax .ub span{position:absolute;transform:translateX(-50%);font-size:12px;color:var(--mut);white-space:nowrap}
+.ur.ax .ub span:last-child{transform:translateX(-100%)}
+@media (max-width:640px){.ur{grid-template-columns:110px 1fr;gap:8px}.un{font-size:12.5px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <b>SBS × SKAI</b>
+  <a href="#idea">아이디어</a><a href="#flow">워크플로우</a><a href="#task">로봇 과제 3D</a><a href="#result">실험 결과</a><a href="#todo">남은 과제</a><a href="#synth">합성 증강</a><a href="#retarget">리타게팅</a><a href="#use">두 가지 쓰임새</a><a href="#collab">협업 포인트</a>
+</div></nav>
+
+<header class="wrap">
+  <div class="hero">
+    <div>
+      <div class="chips"><span class="chip" style="color:var(--sbs)">SBS</span><span class="note">×</span><span class="chip" style="color:var(--robot)">SKAI</span></div>
+      <p class="eyebrow">SPARK pipeline4 · 2026-10-21 첫 미팅</p>
+      <h1><span class="hl-sbs">사람이 일하는 방송 영상</span>을 본 AI가,<br><span class="hl-robot">로봇 일</span>도 더 잘 배울까?</h1>
+      <p class="lead">SBS 아카이브에서 고른 양손 작업 영상을 영상 AI에게 보여준 뒤, 그 AI로 가상 로봇을 가르쳐 차이가 나는지 확인하는 실험입니다. 오늘은 지금까지 해 본 것과 막힌 곳을 공유하고, 함께 할 거리를 찾고 싶습니다.</p>
+    </div>
+    <div class="analogy">
+      <p>한 줄 비유</p>
+      <p class="q">요리 영상을 많이 본 사람은, 처음 칼을 잡아도 더 빨리 배울까?</p>
+      <div class="eq"><div class="h">요리 영상 시청<br><small>= SBS 영상 학습</small></div><i>→</i><div class="r">칼질 연습<br><small>= 로봇 시연 학습</small></div></div>
+      <p style="margin:14px 0 0;font-size:14px">영상만 보고는 칼을 쥘 수 없습니다. 그래서 <b>“보는 것”은 SBS 영상</b>, <b>“해보는 것”은 시뮬레이션 로봇</b>에서 배웁니다.</p>
+    </div>
+  </div>
+</header>
+
+<section id="idea"><div class="wrap">
+  <p class="eyebrow">01 · 아이디어</p>
+  <h2>보는 것과 해보는 것을 나눠서 배운다</h2>
+  <p class="sub">영상에서는 세상이 움직이는 방식을, 시뮬레이터에서는 로봇을 움직이는 법을 배웁니다.</p>
+  <div class="stages">
+    <div class="stage">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="9" width="40" height="27" rx="4" fill="#e5eefc" stroke="#0d5bd7" stroke-width="2"/><path d="M20 17v11l9-5.5z" fill="#0d5bd7"/><path d="M16 41h16" stroke="#0d5bd7" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="num">STEP 1</span><h3>SBS 영상 고르기</h3>
+      <p>뉴스·교양 원본에서 <b>카메라가 고정되고 두 손이 계속 보이는</b> 작업 장면만 자동으로 골라냅니다.</p>
+      <span class="tag done">869개 클립 확보</span>
+    </div>
+    <div class="stage">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="24" rx="4" fill="#e5eefc" stroke="#0d5bd7" stroke-width="2"/><path d="M12 28l7-8 6 5 5-6 6 9" stroke="#0d5bd7" stroke-width="2.5" fill="none" stroke-linejoin="round"/><path d="M24 34v6M17 40h14" stroke="#0d5bd7" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="num">STEP 2</span><h3>영상 AI에게 보여주기</h3>
+      <p>NVIDIA의 영상 예측 AI(Cosmos Predict 2B)에 SBS 영상을 추가로 학습시킵니다. 다음 장면을 더 잘 상상하게 만드는 단계입니다.</p>
+      <span class="tag done">작은 실험 완료</span>
+    </div>
+    <div class="stage">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="38" width="32" height="5" rx="2" fill="#0f8a6c"/><path d="M16 38V27l10-9 8 6" stroke="#0f8a6c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="34" cy="24" r="4" fill="#e2f4ee" stroke="#0f8a6c" stroke-width="2"/></svg>
+      <span class="num">STEP 3</span><h3>가상 로봇 가르치고 시험</h3>
+      <p>그 AI를 출발점으로 가상 로봇에게 양손 작업을 연습시키고, 처음 보는 상황에서 몇 번 성공하는지 셉니다.</p>
+      <span class="tag doing">로봇 과제 만드는 중</span>
+    </div>
+  </div>
+  <div class="key"><b>핵심 질문은 하나입니다.</b> 같은 양의 로봇 연습을 시켰을 때, SBS 영상을 본 AI에서 출발한 로봇이 그렇지 않은 로봇보다 더 자주 성공하는가?</div>
+</div></section>
+
+<section id="flow"><div class="wrap">
+  <p class="eyebrow">02 · 워크플로우</p>
+  <h2>전체 흐름과 지금 위치</h2>
+  <p class="sub">파란색은 SBS 영상, 초록색은 시뮬레이션 로봇 쪽이며 마지막에 만나 비교됩니다.</p>
+  <div class="flow">
+    <div class="fstep sbs"><span class="lane" style="color:var(--sbs)">SBS</span><b>방송 아카이브 검색</b><span>사내 멀티모달 검색으로 양손 작업 후보 회수</span><span class="st done">완료</span></div>
+    <div class="fstep sbs"><span class="lane" style="color:var(--sbs)">SBS</span><b>자동 선별 7단계</b><span>자세·카메라·양손 지속·AI 과업 판정·사람 검수</span><span class="st done">869개</span></div>
+    <div class="fstep sbs"><span class="lane" style="color:var(--sbs)">AI</span><b>영상 AI 후학습</b><span>Cosmos 2B에 SBS 영상을 덧입힘(LoRA)</span><span class="st done">개발 실험 완료</span></div>
+    <div class="fstep sim"><span class="lane" style="color:var(--robot)">SIM</span><b>가상 작업장 구축</b><span>Isaac Sim에 로봇 팔 2대·작업대·물체</span><span class="st done">완료</span></div>
+    <div class="fstep sim"><span class="lane" style="color:var(--robot)">SIM</span><b>양손 과제·시연</b><span>한 손 고정, 다른 손 도구 — 모범 시연 만들기</span><span class="st doing">진행 중</span></div>
+    <div class="fstep end"><span class="lane" style="color:var(--gold)">비교</span><b>로봇 성공률 비교</b><span>SBS를 본 AI vs 안 본 AI, 같은 시험</span><span class="st todo">예정</span></div>
+  </div>
+  <div class="lanes"><span><i style="background:var(--sbs)"></i>SBS 영상 줄기</span><span><i style="background:var(--robot)"></i>시뮬레이션 로봇 줄기</span><span><i style="background:var(--gold)"></i>최종 비교</span></div>
+  <div class="groups">
+    <div class="grp">
+      <h3>A군 <span class="pill todo">대조군</span></h3>
+      <div class="chain"><span>기본 영상 AI</span><em>→</em><span>로봇 시연 학습</span><em>→</em><span>Isaac 시험</span></div>
+    </div>
+    <div class="grp" style="border-color:#bcd2f7">
+      <h3>B군 <span class="pill" style="background:var(--sbs-soft);color:var(--sbs)">실험군</span></h3>
+      <div class="chain"><span>기본 영상 AI</span><em>→</em><span class="sb">SBS 영상 학습</span><em>→</em><span>로봇 시연 학습</span><em>→</em><span>Isaac 시험</span></div>
+    </div>
+  </div>
+  <div class="verdict">다른 조건은 모두 같고, 단 하나 <span class="hl-sbs">“SBS 영상을 봤는가”</span>만 다릅니다 → 같은 초기 상태에서 성공률 차이를 잽니다</div>
+</div></section>
+
+<section id="task"><div class="wrap">
+  <p class="eyebrow">03 · 로봇 과제 (3D)</p>
+  <h2>첫 양손 과제: 한 손은 누르고, 다른 손은 도구로 따라가기</h2>
+  <p class="sub">SBS에 흔한 ‘한 손으로 잡고 칼질하기’를 단단한 블록 위 도구 따라가기로 단순화했습니다.</p>
+  <div class="three">
+    <div id="sim" role="img" aria-label="두 로봇 팔이 블록을 누르고 도구로 선을 따라가는 3D 애니메이션">
+      <span class="phase" id="phase">접근</span>
+      <span class="hint">드래그해서 돌려보기</span>
+      <div class="hud"><div id="hudL">왼손 힘 0 N</div><div id="hudR">도구 힘 0 N</div><div id="hudP">경로 0%</div></div>
+    </div>
+    <div class="card">
+      <h3>무엇을 하면 “성공”인가</h3>
+      <div class="rule" style="margin-top:12px"><span class="ic" style="background:var(--sbs-soft);color:var(--sbs)">L</span><div><b>왼팔</b>: 0.5kg 블록 윗면을 눌러 고정. 블록은 바닥에 붙어 있지 않은 진짜 자유 물체입니다.</div></div>
+      <div class="rule" style="margin-top:10px"><span class="ic" style="background:var(--robot-soft);color:var(--robot)">R</span><div><b>오른팔</b>: 끝의 둥근 도구로 윗면의 6cm 선을 따라갑니다.</div></div>
+      <div class="rule" style="margin-top:10px"><span class="ic" style="background:var(--warm-soft);color:var(--warm)">✓</span><div>블록이 1cm 이상 밀리거나 5° 넘게 돌면 실패. 선을 90% 이상, 1cm 오차 안에서 따라가야 하고, 두 손이 <b>동시에 실제로 닿아</b> 있어야 합니다(시뮬레이터가 계산한 접촉력으로 판정).</div></div>
+      <p class="note" style="margin:14px 0 0">왼쪽 3D는 개념을 보여주는 단순 모형입니다. 실제 실험은 NVIDIA Isaac Sim 6.0.1과 Franka Panda 로봇 모델로 클라우드 GPU에서 돌립니다.</p>
+    </div>
+  </div>
+  <div class="media2">
+    <figure class="zoomable" data-zoom="media/smoke_v8.mp4" tabindex="0" role="button" aria-label="두 팔 제어·촬영 시험 영상 크게 보기">
+      <video src="media/smoke_v8.mp4" muted loop playsinline autoplay preload="metadata"></video>
+      <figcaption><b>실제 Isaac Sim · 두 팔 제어·촬영 시험</b><span>로봇 2대를 실제로 움직이고 화면·관절 값을 함께 저장 (v8 성공)</span></figcaption>
+      <span class="zoom-ic" aria-hidden="true">⤢</span>
+    </figure>
+    <figure class="zoomable" data-zoom="media/hold_trace_v6.mp4" tabindex="0" role="button" aria-label="접촉 과제 최신 시도 영상 크게 보기">
+      <video src="media/hold_trace_v6.mp4" muted loop playsinline autoplay preload="metadata"></video>
+      <figcaption><b>실제 Isaac Sim · 접촉 과제 최신 시도</b><span>왼손으로 블록을 누르고 오른손 도구로 선을 따라가는 시연 (v6)</span></figcaption>
+      <span class="zoom-ic" aria-hidden="true">⤢</span>
+    </figure>
+  </div>
+</div></section>
+
+<section id="result"><div class="wrap">
+  <p class="eyebrow">04 · 최신 결과</p>
+  <h2>지금까지 확인한 것</h2>
+  <p class="sub">가장 최근 실험(2026-10-20) 기준입니다.</p>
+  <div class="res">
+    <div class="card">
+      <div class="rhead"><span class="rk" style="background:var(--sbs-soft);color:var(--sbs)">영상 AI</span><span class="note">3번 반복 학습</span></div>
+      <h3>SBS를 순서대로 보여주면 장면 복원이 조금씩, 꾸준히 좋아졌다</h3>
+      <div class="bigs">
+        <div class="big" style="background:var(--robot-soft);color:var(--robot)"><div class="v">−0.34%</div><div class="l">순서대로 학습 · 오차 감소</div></div>
+        <div class="big" style="background:var(--bad-soft);color:var(--bad)"><div class="v">+0.23%</div><div class="l">프레임 순서를 섞으면 · 오차 증가</div></div>
+      </div>
+      <svg class="chart" id="chart" viewBox="0 0 520 210" width="100%" role="img" aria-label="기본 모델 대비 오차 변화 막대그래프"></svg>
+      <p class="one">차이는 아직 작고(학습 영상 8개), 같은 시험 영상 5개 기준입니다. 로봇 성능과는 별개입니다.</p>
+    </div>
+    <div class="card">
+      <div class="rhead"><span class="rk" style="background:var(--robot-soft);color:var(--robot)">가상 로봇</span><span class="note">접촉 과제 v6</span></div>
+      <h3>모범 시연, 기준 6개 중 5개 통과 — 완주율 하나 남음</h3>
+      <div class="score"><div class="sv">5<small>/6</small></div><div class="meter" style="flex:1"><div class="t"><span>선 따라가기 완주율</span><b>85% <span class="note">/ 목표 90%</span></b></div><div class="bar"><i style="width:85%;background:var(--warm)"></i><b style="left:90%"></b></div></div></div>
+      <div class="checks">
+        <div class="done">✓ 블록 안 밀림</div><div class="done">✓ 블록 안 돌아감</div>
+        <div class="done">✓ 선 오차 8mm</div><div class="done">✓ 도구 힘 6.4N (한도 20N)</div>
+        <div class="done">✓ 두 손 동시 접촉 80%</div><div class="ng">✗ 완주 85% → 90%</div>
+      </div>
+      <p class="one">처음(v2)엔 도구가 346N으로 짓누르고 완주 0%였습니다. 통과하면 로봇 학습을 시작합니다.</p>
+    </div>
+  </div>
+  
+</div></section>
+
+<section id="todo"><div class="wrap">
+  <p class="eyebrow">05 · 남은 과제</p>
+  <h2>최종 질문까지 남은 길</h2>
+  <div class="road">
+    <div class="rstep"><span class="st done">완료</span><b>SBS 양손 영상 선별</b><span>869개 클립, 76개 과업 분류</span></div>
+    <div class="rstep"><span class="st done">완료</span><b>영상 AI 후학습</b><span>작은 개선 신호, 3번 반복 확인</span></div>
+    <div class="rstep"><span class="st doing">진행 중</span><b>모범 시연 통과</b><span>완주율 85% → 90%, 성공 시연 4개 이상</span></div>
+    <div class="rstep"><span class="st todo">다음</span><b>로봇 정책 학습</b><span>기본 AI / SBS AI에서 각각 같은 시연으로 학습</span></div>
+    <div class="rstep"><span class="st todo">최종</span><b>성공률 비교</b><span>처음 보는 초기 상태에서 반복 시험</span></div>
+  </div>
+  <div class="extra"><b>함께 풀어야 할 숙제.</b> 다른 영상 대조군으로 “SBS라서”를 증명하기 · 단단한 블록에서 실제로 잘리는 재료로 · 화면 속 물체와 똑같은 가상 물체 · 영상과 시뮬레이션의 외형 차이 줄이기 · <b>양손 영상 자체를 더 늘리기</b></div>
+</div></section>
+
+<section id="synth"><div class="wrap">
+  <p class="eyebrow">06 · 합성 증강 아이디어</p>
+  <h2>양손 조작 영상 1개를 여러 개로 늘릴 수 있을까?</h2>
+  <p class="sub">손과 물체의 움직임은 지키고, 나머지를 바꾸거나 새로 만드는 다섯 가지 방법입니다.</p>
+  <div class="spectrum" aria-hidden="true"><span>원본에 가깝게</span><i></i><span>새로 만들기</span></div>
+  <div class="synth">
+    <div class="sy">
+      <svg viewBox="0 0 200 112"><defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#e9eef2"/><stop offset=".5" stop-color="#e9eef2"/><stop offset=".5" stop-color="#ffe2b8"/><stop offset="1" stop-color="#cfe2ff"/></linearGradient></defs><rect width="200" height="112" rx="8" fill="url(#g1)"/><rect x="0" y="74" width="200" height="38" fill="#d5c3a1" opacity=".6"/><rect x="80" y="60" width="40" height="22" rx="3" fill="#e9cf96" stroke="#9a7a3c"/><circle cx="72" cy="62" r="9" fill="#f2c9a5" stroke="#a8724a"/><circle cx="128" cy="58" r="9" fill="#f2c9a5" stroke="#a8724a"/><path d="M100 4v104" stroke="#fff" stroke-width="2" stroke-dasharray="4 3"/><text x="50" y="22" font-size="11" fill="#46535f" text-anchor="middle">원본</text><text x="150" y="22" font-size="11" fill="#7a4510" text-anchor="middle">배경·조명 변경</text></svg>
+      <span class="lv">충실 ●●●○ · 다양성 ●●○○</span>
+      <h3>① 배경·조명·재질 바꾸기</h3>
+      <p>손·물체 영역은 마스크로 지키고 주변만 생성형 AI로 다시 그립니다.</p>
+      <span class="ex">예: SAM 2 마스크 + 영상 편집 확산모델, NVIDIA Cosmos Transfer(깊이·윤곽 조건 변환), ROSIE·GenAug류</span>
+      <span class="sk">SKAI 연결: 조명·재질 물리 시뮬레이션 노하우로 변형 범위 설계</span>
+    </div>
+    <div class="sy">
+      <svg viewBox="0 0 200 112"><rect width="200" height="112" rx="8" fill="#eef3f6"/><rect x="0" y="74" width="200" height="38" fill="#d5c3a1" opacity=".6"/><rect x="30" y="58" width="36" height="22" rx="3" fill="#e9cf96" stroke="#9a7a3c"/><path d="M84 66h24" stroke="#0d5bd7" stroke-width="2.5" marker-end="url(#ar)"/><defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0d5bd7"/></marker></defs><path d="M128 52h30v26a6 6 0 0 1-6 6h-18a6 6 0 0 1-6-6z" fill="#cfe2ff" stroke="#0d5bd7"/><path d="M158 58c10 0 10 14 0 14" stroke="#0d5bd7" stroke-width="3" fill="none"/><ellipse cx="48" cy="98" rx="20" ry="3" fill="#000" opacity=".08"/><ellipse cx="143" cy="98" rx="20" ry="3" fill="#000" opacity=".08"/><text x="100" y="22" font-size="11" fill="#46535f" text-anchor="middle">같은 동작, 다른 물체</text></svg>
+      <span class="lv">충실 ●●○○ · 다양성 ●●●○</span>
+      <h3>② 물체 바꾸기</h3>
+      <p>블록을 컵·냄비·공구로 교체. 크기와 손이 닿는 위치가 맞는 3D 물체가 필요합니다.</p>
+      <span class="ex">예: 물체 자세 추정(FoundationPose) + 3D 자산 교체 후 재렌더·합성</span>
+      <span class="sk">SKAI 연결: 실물 스캔 3D 자산 라이브러리</span>
+    </div>
+    <div class="sy">
+      <svg viewBox="0 0 200 112"><rect width="200" height="112" rx="8" fill="#eef3f6"/><rect x="0" y="74" width="200" height="38" fill="#d5c3a1" opacity=".6"/><rect x="82" y="58" width="36" height="22" rx="3" fill="#e9cf96" stroke="#9a7a3c"/><g fill="#16202b"><rect x="18" y="24" width="22" height="14" rx="3"/><rect x="160" y="24" width="22" height="14" rx="3"/><rect x="89" y="6" width="22" height="14" rx="3"/></g><g stroke="#0f8a6c" stroke-dasharray="3 3" stroke-width="1.5"><path d="M40 34L84 60"/><path d="M160 34L116 60"/><path d="M100 20v36"/></g><circle cx="29" cy="31" r="3" fill="#7cf"/><circle cx="171" cy="31" r="3" fill="#7cf"/><circle cx="100" cy="13" r="3" fill="#7cf"/></svg>
+      <span class="lv">충실 ●●○○ · 다양성 ●●●○</span>
+      <h3>③ 카메라 시점 늘리기</h3>
+      <p>한 대로 찍은 영상에서 옆·위·1인칭 시점을 새로 만들어 멀티뷰 데이터로 확장합니다.</p>
+      <span class="ex">예: 카메라 제어 영상 생성(NVIDIA GEN3C, ReCamMaster), 4D 장면 복원 후 재촬영</span>
+      <span class="sk">SKAI 연결: 디지털 트윈 카메라 배치·렌더링</span>
+    </div>
+        <div class="sy">
+      <svg viewBox="0 0 200 112"><rect width="200" height="112" rx="8" fill="#e2f4ee"/><g stroke="#0f8a6c" stroke-width="1" opacity=".5"><path d="M0 90h200M0 70h200M40 112l30-60M100 112V52M160 112l-30-60"/></g><path d="M70 62l30-12 30 12-30 12z" fill="#e9cf96" stroke="#9a7a3c"/><path d="M70 62v14l30 12V74z" fill="#d9b874" stroke="#9a7a3c"/><path d="M130 62v14l-30 12V74z" fill="#c9a660" stroke="#9a7a3c"/><circle cx="62" cy="54" r="8" fill="#f2c9a5" stroke="#a8724a"/><circle cx="140" cy="52" r="8" fill="#f2c9a5" stroke="#a8724a"/><path d="M62 54C80 30 120 30 140 52" stroke="#0d5bd7" stroke-dasharray="4 3" fill="none"/><text x="100" y="20" font-size="11" fill="#0b5a47" text-anchor="middle">3D로 옮겨 무한 변형 + 정답 자동</text></svg>
+      <span class="lv">충실 ●●●○ · 다양성 ●●●● · 정답 라벨 ●●●●</span>
+      <h3>④ 장면을 3D로 옮겨 다시 찍기</h3>
+      <p>손·물체 궤적을 3D로 복원해 디지털 트윈에서 재현합니다. 조명·물체·카메라를 무한히 바꾸고, 깊이·마스크·손 자세 정답이 저절로 붙습니다.</p>
+      <span class="ex">예: 손·물체 4D 복원 → Omniverse 재현 → 도메인 랜덤화 렌더</span>
+      <span class="sk">SKAI 연결: 핵심 역량(디지털 트윈·자동 라벨 합성데이터) 그대로</span>
+      
+    </div>
+    <div class="sy">
+      <svg viewBox="0 0 200 112"><rect width="200" height="112" rx="8" fill="#eef3f6"/><g><rect x="12" y="34" width="44" height="30" rx="3" fill="#cfe2ff" stroke="#0d5bd7"/><rect x="62" y="34" width="44" height="30" rx="3" fill="#e5eefc" stroke="#0d5bd7" stroke-dasharray="3 2"/><rect x="112" y="34" width="44" height="30" rx="3" fill="#e5eefc" stroke="#0d5bd7" stroke-dasharray="3 2"/><rect x="162" y="34" width="26" height="30" rx="3" fill="#e5eefc" stroke="#0d5bd7" stroke-dasharray="3 2"/></g><text x="34" y="80" font-size="10" fill="#46535f" text-anchor="middle">첫 장면</text><text x="125" y="80" font-size="10" fill="#0d5bd7" text-anchor="middle">AI가 이어서 생성</text><text x="100" y="100" font-size="10" fill="#46535f" text-anchor="middle">“냄비 뚜껑을 양손으로 연다”</text></svg>
+      <span class="lv">충실 ●○○○ · 다양성 ●●●●</span>
+      <h3>⑤ 새 동작을 통째로 생성</h3>
+      <p>SBS로 후학습한 영상 AI가 첫 장면과 문장만으로 새 양손 작업 영상을 만듭니다. 걸러내는 품질 검사가 필수입니다.</p>
+      <span class="ex">예: Cosmos Predict 후학습 생성, DreamGen(영상 생성 → 행동 추정)</span>
+      <span class="sk">SKAI 연결: 생성 결과의 물리 타당성 검수</span>
+    </div>
+  </div>
+  <div class="sflow">
+    <div><b>1 분해</b><span>손·물체·배경·카메라로 나누기</span></div><i>→</i>
+    <div><b>2 바꾸기</b><span>①~⑤ 중 선택</span></div><i>→</i>
+    <div><b>3 검수</b><span>손-물체 접촉·동작 순서가 그대로인가</span></div><i>→</i>
+    <div><b>4 효과 측정</b><span>같은 양에서 원본 반복 vs 합성 추가 비교</span></div>
+  </div>
+  <p class="one" style="margin-top:12px">주의: 손과 물체의 접촉이 어긋난 합성은 오히려 해가 됩니다. 원본→파생 계보와 권리 범위를 함께 기록합니다.</p>
+</div></section>
+
+<section id="retarget"><div class="wrap">
+  <p class="eyebrow">07 · 또 하나의 합성 방법: 리타게팅</p>
+  <h2>사람 손 움직임을 로봇 손 움직임으로 “번역”하기</h2>
+  <p class="sub">영상 속 손목 경로를 로봇 손끝 경로로 옮겨, 로봇이 직접 해본 연습 데이터를 만듭니다.</p>
+  <div class="three">
+    <div id="rt" role="img" aria-label="사람 손목 경로를 로봇 손끝이 그대로 따라가는 3D 애니메이션">
+      <span class="phase" id="rtPhase">잡기</span>
+      <span class="hint">드래그해서 돌려보기</span>
+      <div class="hud"><div style="color:#0d5bd7">● 사람 손목 경로</div><div style="color:#0f8a6c">● 로봇 손끝 경로</div></div>
+    </div>
+    <div class="card">
+      <h3>비유: 인형극</h3>
+      <p class="note" style="margin:6px 0 12px;color:var(--ink2)">사람 손목에 실을 매달아 로봇 손을 끌고 다니는 것과 같습니다. 손가락 모양은 버리고 <b>“어디로 움직였나”</b>와 <b>“쥐었나 폈나”</b>만 옮깁니다.</p>
+      <div class="rsteps">
+        <div><b>1</b><span>손 찾기<small>영상에서 두 손 위치</small></span></div>
+        <div><b>2</b><span>3D 손 복원<small>예: HaMeR·WiLoR</small></span></div>
+        <div><b>3</b><span>좌표 맞추기<small>도마 = 로봇 작업대</small></span></div>
+        <div><b>4</b><span>로봇으로 옮기기<small>손목 경로 → 손끝 목표</small></span></div>
+        <div class="hot"><b>5</b><span>시뮬레이터에서 확인<small>성공한 것만 데이터로</small></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="rmeth">
+    <div class="rm pick"><svg viewBox="0 0 80 50" aria-hidden="true"><path d="M8 38C24 10 46 40 70 14" stroke="#0d5bd7" stroke-width="2.5" fill="none" stroke-dasharray="4 3"/><circle cx="70" cy="14" r="5" fill="#0f8a6c"/></svg><b>손목 따라가기</b><span>손목 위치·방향만 옮김. 집게 로봇에 적합</span><em>SBS 첫 시도</em></div>
+    <div class="rm"><svg viewBox="0 0 80 50" aria-hidden="true"><path d="M14 40V20l8-8M30 40V16l6-8M46 40V18l8-6" stroke="#0d5bd7" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M60 22h12" stroke="#7a8691" stroke-width="2"/></svg><b>관절 각도 복사</b><span>손가락 굽힘을 그대로. 비슷한 손만 가능</span><em class="no">비추천</em></div>
+    <div class="rm"><svg viewBox="0 0 80 50" aria-hidden="true"><circle cx="24" cy="18" r="4" fill="#0d5bd7"/><circle cx="24" cy="36" r="4" fill="#0d5bd7"/><path d="M24 22v10" stroke="#0d5bd7" stroke-dasharray="2 2"/><circle cx="56" cy="16" r="4" fill="#0f8a6c"/><circle cx="56" cy="38" r="4" fill="#0f8a6c"/><path d="M56 20v14" stroke="#0f8a6c" stroke-dasharray="2 2"/></svg><b>손끝 모양 맞추기</b><span>손끝끼리 관계를 맞춤. 다섯 손가락 로봇용</span><em class="no">나중에</em></div>
+    <div class="rm pick"><svg viewBox="0 0 80 50" aria-hidden="true"><rect x="8" y="22" width="16" height="12" rx="2" fill="#e9cf96" stroke="#9a7a3c"/><path d="M28 28h26" stroke="#0d5bd7" stroke-width="2" stroke-dasharray="4 3"/><rect x="56" y="22" width="16" height="12" rx="2" fill="#e9cf96" stroke="#9a7a3c"/></svg><b>물체 따라 하기</b><span>손 대신 물체(칼·냄비) 경로만. 손이 가려져도 됨</span><em>함께 사용</em></div>
+    <div class="rm pick"><svg viewBox="0 0 80 50" aria-hidden="true"><path d="M10 34c10-14 20 6 30-6s20 2 30-8" stroke="#c8463a" stroke-width="2" fill="none" stroke-dasharray="3 3"/><path d="M10 34c12-6 24-4 30-6s20-4 30-8" stroke="#0f8a6c" stroke-width="2.5" fill="none"/></svg><b>해보면서 고치기</b><span>시뮬레이터가 닿는 위치·힘을 보정</span><em>필수 마지막 단계</em></div>
+  </div>
+  <p class="one">SBS는 카메라 한 대라 거리를 도마 같은 기준 물체로 추정하고, 힘은 영상에 안 보여 시뮬레이터에서 맞춥니다.</p>
+</div></section>
+
+<section id="use"><div class="wrap">
+  <p class="eyebrow">08 · 두 가지 쓰임새</p>
+  <h2>같은 합성 데이터, 어디에 쓰느냐에 따라 가치가 다르다</h2>
+  <p class="sub">영상 AI의 예측력을 키우는 데이터와 로봇의 행동을 가르치는 데이터는 필요한 것이 다릅니다.</p>
+  <div class="uses">
+    <div class="use u1">
+      <div class="uh"><span class="ut">A · 영상 AI 예측력용</span><b>“다음 장면을 더 잘 맞히게”</b></div>
+      <div class="need"><span>영상</span><i>+</i><span>설명문</span></div>
+      <p>새롭고 <b>물리적으로 맞는 움직임</b>이 들어 있어야 가치가 있습니다. 겉모습만 바꾸면 배울 게 적고, AI가 만든 영상을 다시 AI에 먹이면 오히려 나빠질 수 있습니다.</p>
+      <div class="refs">해외 사례 · Aether(합성만으로 학습해 실제에 일반화) · Dexterous World Models(합성+실제 손 영상)</div>
+    </div>
+    <div class="use u2">
+      <div class="uh"><span class="ut">B · 로봇 정책용</span><b>“이럴 땐 팔을 이렇게 움직여라”</b></div>
+      <div class="need"><span>로봇 화면</span><i>+</i><span>로봇 상태</span><i>+</i><span class="must">행동 정답</span></div>
+      <p><b>행동 정답</b>이 반드시 필요합니다. 그래서 리타게팅으로 동작을 옮기고, 시뮬레이터에서 성공한 것만 씁니다. 해외에서 효과가 가장 많이 보고된 쓰임새입니다.</p>
+      <div class="refs">해외 사례 · Phantom·Masquerade(사람 팔→로봇 팔) · RoboTransfer(배경·물체 교체) · DreamGen(생성 영상→행동 추정)</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>다섯 가지 합성 방법, 쓰임새별 기대 가치</h3>
+    <div class="legend"><span><i style="background:#0d5bd7"></i>A 영상 AI 예측력용</span><span><i style="background:#0f8a6c"></i>B 로봇 정책용</span></div>
+    <div id="useChart" class="uchart" role="img" aria-label="합성 방법 여섯 가지의 쓰임새별 기대 가치 막대그래프"></div>
+    <p class="one">공개 연구 결과를 바탕으로 한 SBS의 정성 판단입니다(측정값 아님). ⑤는 예측력용으로는 순환 학습 위험이 있습니다.</p>
+  </div>
+  <div class="pathcmp">
+    <div class="pc"><span class="pt" style="color:var(--sbs)">A 경로</span><div class="pf"><span>SBS 클립</span><i>→</i><span>합성 ①②③④</span><i>→</i><span>영상 AI 후학습</span><i>→</i><span class="gl">예측 오차 ↓ ?</span></div></div>
+    <div class="pc"><span class="pt" style="color:var(--robot)">B 경로</span><div class="pf"><span>SBS 클립</span><i>→</i><span>리타게팅 + ④</span><i>→</i><span>시뮬레이터 확인</span><i>→</i><span>①②③ 늘리기</span><i>→</i><span>로봇 정책</span><i>→</i><span class="gl">성공률 ↑ ?</span></div></div>
+  </div>
+</div></section>
+
+<section id="collab"><div class="wrap">
+  <p class="eyebrow">09 · 협업 포인트</p>
+  <h2>SBS가 가진 것과 SKAI가 가진 것이 맞물리는 곳</h2>
+  <p class="sub">실제 사람이 일하는 방송 영상과 실물을 3D로 옮기고 합성하는 기술이 만나는 지점입니다.</p>
+  <div class="match">
+    <div class="mcol s">
+      <h3>SBS가 가진 것</h3>
+      <div>40만 시간 방송 아카이브와 권리 관리</div>
+      <div>양손 조작 클립 869개 · 76개 과업 분류</div>
+      <div>영상 자동 선별 파이프라인</div>
+      <div>효과를 재는 실험 틀 (영상 AI · Isaac Sim)</div>
+    </div>
+    <div class="mmid" aria-hidden="true"><svg viewBox="0 0 60 200" preserveAspectRatio="none"><path d="M0 30C30 30 30 100 60 100M0 80C30 80 30 100 60 100M0 130C30 130 30 100 60 100M0 175C30 175 30 100 60 100" stroke="#b9c4cd" fill="none" stroke-width="1.5"/></svg></div>
+    <div class="mcol k">
+      <h3>SKAI가 가진 것</h3>
+      <div>실물 3D 스캔·모델링(로봇암 자동 스캔)</div>
+      <div>Omniverse 디지털 트윈</div>
+      <div>조명·재질·카메라 물리 기반 랜덤화</div>
+      <div>자동 라벨이 붙은 합성데이터 생성</div>
+    </div>
+  </div>
+  <div class="collab">
+    <div class="co">
+      <span class="n">A</span><h3>영상 속 물체를 3D 자산으로</h3>
+      <div class="pair"><div class="s">SBS: 도구·식재료·작업대가 나오는 장면</div><div class="k">SKAI: 스캔·모델링·물성 설정</div></div>
+      <p>시뮬레이터에 넣을 수 있는 실물 기반 3D 자산. 전북 R&D 계획의 “Real-to-Sim 3D 에셋 150쌍”과 바로 연결됩니다.</p>
+    </div>
+    <div class="co">
+      <span class="n">B</span><h3>양손 조작 영상 합성 증강</h3>
+      <div class="pair"><div class="s">SBS: 검수된 양손 클립 869개</div><div class="k">SKAI: 합성데이터 생성 파이프라인</div></div>
+      <p>위 ①~⑤ 중 한두 가지로 원본 몇 개를 늘려 보는 작은 시도. 특히 ④ 3D로 옮겨 다시 찍기.</p>
+    </div>
+    <div class="co">
+      <span class="n">C</span><h3>한 장면을 디지털 트윈으로</h3>
+      <div class="pair"><div class="s">SBS: 실제 영상 한 장면</div><div class="k">SKAI: 장면 재현·조명·카메라 변형</div></div>
+      <p>실제 영상과 합성 변형본이 짝을 이루는 데이터. 영상과 시뮬레이션의 차이를 줄이는 기준점이 됩니다.</p>
+    </div>
+        <div class="co">
+      <span class="n">D</span><h3>더 현실적인 로봇 과제</h3>
+      <div class="pair"><div class="s">SBS: 과제 설계·비교 실험 틀</div><div class="k">SKAI: 재질·마찰·접촉 물성</div></div>
+      <p>단단한 블록 대신 실제 재료와 도구로. SBS 장면과 닮은 가상 작업장을 만듭니다.</p>
+    </div>
+      </div>
+  
+</div></section>
+
+<div id="lb" class="lb" hidden role="dialog" aria-modal="true" aria-label="크게 보기"><button class="lbx" id="lbx" aria-label="닫기">×</button><div class="lbin" id="lbin"></div></div>
+
+<footer class="wrap">
+  수치는 pipeline4 실행 기록 기준(2026-10-20)입니다. 영상 AI 결과는 개발용 비교이며 로봇 성능 개선을 뜻하지 않습니다. 로봇 성공률 비교는 아직 실행 전입니다.
+
+</footer>
+
+<script src="three.min.js"></script>
+<script>
+// ── 결과 차트: 기본 모델 대비 오차 변화(%) — 한 개의 축에 모든 막대·눈금·라벨을 배치
+(function(){
+  const rows=[
+    {g:'순서대로 학습',seed:42,v:-0.3466},{g:'순서대로 학습',seed:43,v:-0.3439},{g:'순서대로 학습',seed:44,v:-0.3373},
+    {g:'순서 섞어 학습',seed:42,v:0.2514},{g:'순서 섞어 학습',seed:43,v:0.2210},{g:'순서 섞어 학습',seed:44,v:0.2185}];
+  const svg=document.getElementById('chart'), W=520, x0=150, x1=500, lo=-0.4, hi=0.4;
+  const X=v=>x0+(v-lo)/(hi-lo)*(x1-x0), y0=18, rh=26;
+  let s='';
+  [-0.4,-0.2,0,0.2,0.4].forEach(t=>{const x=X(t);s+=`<line x1="${x}" x2="${x}" y1="${y0-6}" y2="${y0+rh*6+4}" stroke="${t===0?'#16202b':'#dde3e8'}" stroke-width="${t===0?1.5:1}"/><text x="${x}" y="${y0+rh*6+20}" font-size="11" fill="#7a8691" text-anchor="middle">${t>0?'+':''}${t.toFixed(1)}%</text>`});
+  rows.forEach((r,i)=>{const y=y0+i*rh, good=r.v<0, a=X(Math.min(0,r.v)), b=X(Math.max(0,r.v));
+    s+=`<text x="${x0-10}" y="${y+14}" font-size="12" fill="#46535f" text-anchor="end">${r.g} · seed ${r.seed}</text>`+
+       `<rect x="${a}" y="${y+3}" width="${b-a}" height="16" rx="4" fill="${good?'#0f8a6c':'#c8463a'}"/>`+
+       `<text x="${good?a+6:b+5}" y="${y+15}" font-size="11.5" font-weight="700" fill="${good?'#ffffff':'#c8463a'}" text-anchor="start">${r.v>0?'+':''}${r.v.toFixed(2)}%</text>`});
+  s+=`<text x="${X(-0.2)}" y="${y0+rh*6+36}" font-size="11.5" fill="#0f8a6c" text-anchor="middle">← 오차 감소(좋음)</text><text x="${X(0.2)}" y="${y0+rh*6+36}" font-size="11.5" fill="#c8463a" text-anchor="middle">오차 증가 →</text>`;
+  svg.setAttribute('viewBox',`0 0 ${W} ${y0+rh*6+44}`); svg.innerHTML=s;
+})();
+
+// ── 3D 개념 모형: 두 로봇 팔, 블록, 도구
+(function(){
+  const wrap=document.getElementById('sim');
+  if(!window.THREE){wrap.insertAdjacentHTML('beforeend','<p style="position:absolute;inset:auto 0 45% 0;text-align:center;color:#46535f">3D를 불러오지 못했습니다</p>');return;}
+  let renderer; try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});}catch(e){return;}
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1,2)); wrap.prepend(renderer.domElement);
+  const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(34,1,.05,50);
+  scene.add(new THREE.HemisphereLight(0xffffff,0xb9c8d2,.85));
+  const sun=new THREE.DirectionalLight(0xffffff,.75); sun.position.set(1.5,3,2.2); scene.add(sun);
+  const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.55,metalness:.05},o));
+  const white=M(0xf3f5f6), dark=M(0x2b3238,{roughness:.4}), wood=M(0xe9cf96,{roughness:.8});
+  // 작업대
+  const table=new THREE.Mesh(new THREE.BoxGeometry(2.6,.08,1.5),M(0xdfe5e9)); table.position.y=-.04; scene.add(table);
+  // 블록(16×12×6cm를 3배 확대)
+  const BW=.48,BH=.18,BD=.36; const block=new THREE.Mesh(new THREE.BoxGeometry(BW,BH,BD),wood); block.position.set(0,BH/2,.05); scene.add(block);
+  const top=BH;
+  // 목표 선(6cm → 0.18)과 진행 선
+  const LZ=.13, LX0=.02, LX1=.20;
+  const guide=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(LX0,top+.002,LZ),new THREE.Vector3(LX1,top+.002,LZ)]),new THREE.LineDashedMaterial({color:0x7a8691,dashSize:.015,gapSize:.01}));
+  guide.computeLineDistances(); scene.add(guide);
+  const prog=new THREE.Mesh(new THREE.BoxGeometry(1,.004,.012),M(0x0f8a6c,{emissive:0x0f8a6c,emissiveIntensity:.4})); prog.position.y=top+.003; prog.position.z=LZ; scene.add(prog);
+  // 팔 만들기: 점과 점 사이에 원통을 놓는 방식 + 2링크 역기구학
+  const L1=.55,L2=.52,WR=.16, H0=.34;
+  function link(r,mat){const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,1,24),mat);scene.add(m);return m;}
+  function joint(r,mat){const m=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),mat);scene.add(m);return m;}
+  const up=new THREE.Vector3(0,1,0);
+  function place(m,a,b){const d=new THREE.Vector3().subVectors(b,a), len=d.length(); m.position.copy(a).addScaledVector(d,.5); m.scale.set(1,len,1); m.quaternion.setFromUnitVectors(up,d.normalize());}
+  function makeArm(bx,bz,tipColor,tipR){
+    const base=new THREE.Mesh(new THREE.CylinderGeometry(.11,.13,.06,32),dark); base.position.set(bx,.03,bz); scene.add(base);
+    return {B:new THREE.Vector3(bx,0,bz),col:link(.06,white),up:link(.05,white),fo:link(.045,white),wr:link(.03,dark),
+      j0:joint(.075,dark),j1:joint(.065,dark),j2:joint(.05,dark),tip:joint(tipR,M(tipColor,{emissive:tipColor,emissiveIntensity:0}))};
+  }
+  const left=makeArm(-.78,-.42,0x0d5bd7,.035), right=makeArm(.78,-.42,0x0f8a6c,.03);
+  function solve(arm,tipPos){
+    const S=arm.B.clone().setY(H0), W=tipPos.clone().setY(tipPos.y+WR);
+    const flat=new THREE.Vector3(W.x-S.x,0,W.z-S.z), d=flat.length(); flat.normalize();
+    const dy=W.y-S.y, D=Math.min(Math.hypot(d,dy),L1+L2-1e-3);
+    const phi=Math.atan2(dy,d)+Math.acos(Math.max(-1,Math.min(1,(L1*L1+D*D-L2*L2)/(2*L1*D))));
+    const E=S.clone().addScaledVector(flat,L1*Math.cos(phi)).add(new THREE.Vector3(0,L1*Math.sin(phi),0));
+    place(arm.col,arm.B,S); place(arm.up,S,E); place(arm.fo,E,W); place(arm.wr,W,tipPos);
+    arm.j0.position.copy(S); arm.j1.position.copy(E); arm.j2.position.copy(W); arm.tip.position.copy(tipPos);
+  }
+  // 라벨
+  const labs=[['왼팔 · 누르기','#0d5bd7'],['오른팔 · 도구로 따라가기','#0f8a6c'],['자유 블록 0.5kg','#7a4510']].map(([t,c])=>{const e=document.createElement('div');e.className='lab';e.textContent=t;e.style.color=c;wrap.appendChild(e);return e;});
+  const phaseEl=document.getElementById('phase'),hL=document.getElementById('hudL'),hR=document.getElementById('hudR'),hP=document.getElementById('hudP');
+  // 카메라 궤도
+  let yaw=.55,pitch=.52,dist=2.55,drag=null,auto=true;
+  const el=renderer.domElement;
+  el.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,yaw,pitch};auto=false;wrap.style.cursor='grabbing';el.setPointerCapture(e.pointerId);});
+  el.addEventListener('pointermove',e=>{if(!drag)return;yaw=drag.yaw-(e.clientX-drag.x)*.008;pitch=Math.max(.15,Math.min(1.25,drag.pitch+(e.clientY-drag.y)*.006));});
+  el.addEventListener('pointerup',()=>{drag=null;wrap.style.cursor='grab';setTimeout(()=>{if(!drag)auto=true;},3000);});
+  function camUpdate(){const tgt=new THREE.Vector3(0,.22,0);cam.position.set(tgt.x+dist*Math.sin(yaw)*Math.cos(pitch),tgt.y+dist*Math.sin(pitch),tgt.z+dist*Math.cos(yaw)*Math.cos(pitch));cam.lookAt(tgt);}
+  function resize(){const w=wrap.clientWidth,h=wrap.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;dist=2.55*Math.max(1,1.35/cam.aspect);cam.updateProjectionMatrix();}
+  new ResizeObserver(resize).observe(wrap); resize();
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, lerp=(a,b,t)=>a+(b-a)*t, clamp=t=>Math.max(0,Math.min(1,t));
+  const LP=new THREE.Vector3(-.13,top+.035,.0), HOV=.2, T=8;
+  const v=new THREE.Vector3();
+  function proj(p,e){v.copy(p).project(cam);const w=wrap.clientWidth,h=wrap.clientHeight;const hw=e.offsetWidth/2+6;e.style.left=Math.max(hw,Math.min(w-hw,(v.x*.5+.5)*w))+'px';e.style.top=((-v.y*.5+.5)*h-14)+'px';}
+  let visible=true; new IntersectionObserver(es=>{visible=es[0].isIntersecting;}).observe(wrap);
+  let t0=performance.now(), last=t0;
+  function frame(now){
+    requestAnimationFrame(frame);
+    const dt=(now-last)/1000; last=now; if(!visible) return;
+    if(auto&&!reduce) yaw+=dt*.12;
+    const t=reduce?3.6:((now-t0)/1000)%T;
+    // 단계: 0–1.4 접근, 1.4–2 접촉, 2–5.6 따라가기, 5.6–6.6 들어올림, 6.6–8 대기
+    const down=t<1.4?ease(t/1.4):t<5.6?1:t<6.6?1-ease((t-5.6)/1):0;
+    const p=t<2?0:t<5.6?ease((t-2)/3.6):t<6.6?1:0;
+    const contactL=t>=1.2&&t<5.8, contactR=t>=1.5&&t<5.7;
+    const lt=LP.clone(); lt.y+=HOV*(1-down);
+    const rt=new THREE.Vector3(lerp(LX0,LX1,p),top+.03+HOV*(1-down),LZ);
+    solve(left,lt); solve(right,rt);
+    left.tip.material.emissiveIntensity=contactL?.55:0; right.tip.material.emissiveIntensity=contactR?.55:0;
+    const len=Math.max(.0001,(LX1-LX0)*(t<5.6?p:t<6.6?1:0)); prog.scale.x=len; prog.position.x=LX0+len/2; prog.visible=t>=2&&t<6.6;
+    phaseEl.textContent=t<1.4?'1 접근':t<2?'2 양손 접촉':t<5.6?'3 누른 채 선 따라가기':t<6.6?'4 손 떼기':'대기';
+    hL.textContent='왼손 힘 '+(contactL?'≈3':'0')+' N'; hR.textContent='도구 힘 '+(contactR?'≈1':'0')+' N'; hP.textContent='경로 '+Math.round((t<5.6?p:t<6.6?1:0)*100)+'%';
+    camUpdate(); renderer.render(scene,cam);
+    proj(left.B.clone().setY(.02),labs[0]); proj(right.B.clone().setY(.02),labs[1]); proj(new THREE.Vector3(-.12,top+.02,BD/2+.05),labs[2]);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// ── 쓰임새별 기대 가치 막대(정성 판단, 0~3) — HTML 막대라 화면 폭과 무관하게 글자 크기가 일정
+(function(){
+  const rows=[['① 배경·조명·재질',1.5,2.5],['② 물체 바꾸기',2,2.5],['③ 시점 늘리기',2.5,2],['④ 3D로 옮겨 다시 찍기',3,3],['⑤ 새 동작 생성',.5,2]];
+  const el=document.getElementById('useChart'); if(!el) return;
+  const pct=v=>(v/3*100).toFixed(1)+'%';
+  el.innerHTML=rows.map(([n,a,b],i)=>`<div class="ur${i===3?' hi':''}"><span class="un">${n}</span><div class="ub"><div class="tk"></div><i class="a" style="width:${pct(a)}"></i>${i===4?'<em>순환 학습 위험</em>':''}<i class="b" style="width:${pct(b)}"></i></div></div>`).join('')+
+    '<div class="ur ax"><span class="un"></span><div class="ub"><span style="left:33.3%">낮음</span><span style="left:66.6%">중간</span><span style="left:100%">높음</span></div></div>';
+})();
+
+// ── 리타게팅 3D: 사람 손목 경로 → 로봇 손끝 경로
+(function(){
+  const wrap=document.getElementById('rt'); if(!wrap||!window.THREE) return;
+  let renderer; try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});}catch(e){return;}
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1,2)); wrap.prepend(renderer.domElement);
+  const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(34,1,.05,50);
+  scene.add(new THREE.HemisphereLight(0xffffff,0xb9c8d2,.85));
+  const sun=new THREE.DirectionalLight(0xffffff,.7); sun.position.set(1.5,3,2.2); scene.add(sun);
+  const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.55,metalness:.05},o));
+  const white=M(0xf3f5f6), dark=M(0x2b3238,{roughness:.4}), skin=M(0xf0c4a0,{roughness:.7}), wood=M(0xd9b27a,{roughness:.85});
+  // 좌: 사람 쪽 도마 / 우: 로봇 쪽 작업대
+  const t1=new THREE.Mesh(new THREE.BoxGeometry(1.1,.06,.9),M(0xe7d9c4)); t1.position.set(-.7,-.03,0); scene.add(t1);
+  const t2=new THREE.Mesh(new THREE.BoxGeometry(1.1,.06,.9),M(0xdfe5e9)); t2.position.set(.7,-.03,0); scene.add(t2);
+  const board=new THREE.Mesh(new THREE.BoxGeometry(.5,.03,.32),wood); board.position.set(-.7,.015,.05); scene.add(board);
+  const veg=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.22,20),M(0xf3e6b0)); veg.rotation.z=Math.PI/2; veg.position.set(-.7,.065,.05); scene.add(veg);
+  const blk=new THREE.Mesh(new THREE.BoxGeometry(.22,.07,.14),M(0xe9cf96)); blk.position.set(.7,.035,.05); scene.add(blk);
+  // 가운데 칸막이 + 번역 화살표
+  const div=new THREE.Mesh(new THREE.BoxGeometry(.01,.5,.9),new THREE.MeshBasicMaterial({color:0x9fb3c2,transparent:true,opacity:.25})); div.position.set(0,.25,0); scene.add(div);
+  // 사람 손: 손바닥 + 손가락 5개(굽힘 애니메이션)
+  const hand=new THREE.Group(); scene.add(hand);
+  const palm=new THREE.Mesh(new THREE.BoxGeometry(.09,.028,.1),skin); hand.add(palm);
+  const fingers=[];
+  [[-.033,.05,.038],[-.011,.05,.042],[.011,.05,.04],[.033,.05,.034]].forEach(([x,z,l])=>{const g=new THREE.Group();g.position.set(x,0,z);const f=new THREE.Mesh(new THREE.CylinderGeometry(.009,.009,l,10),skin);f.rotation.x=Math.PI/2;f.position.z=l/2;g.add(f);hand.add(g);fingers.push(g);});
+  const th=new THREE.Group(); th.position.set(.05,0,.01); const tf=new THREE.Mesh(new THREE.CylinderGeometry(.01,.01,.04,10),skin); tf.rotation.z=Math.PI/2; tf.position.x=.02; th.add(tf); hand.add(th);
+  const forearm=new THREE.Mesh(new THREE.CylinderGeometry(.03,.035,.3,16),skin); forearm.rotation.x=Math.PI/2; forearm.position.set(0,.01,-.2); hand.add(forearm);
+  // 로봇 팔(2링크 IK) + 집게
+  const L1=.5,L2=.46,WR=.12,H0=.32, up=new THREE.Vector3(0,1,0);
+  const link=(r,m)=>{const o=new THREE.Mesh(new THREE.CylinderGeometry(r,r,1,22),m);scene.add(o);return o;};
+  const joint=(r,m)=>{const o=new THREE.Mesh(new THREE.SphereGeometry(r,22,14),m);scene.add(o);return o;};
+  const place=(m,a,b)=>{const d=new THREE.Vector3().subVectors(b,a),len=d.length();m.position.copy(a).addScaledVector(d,.5);m.scale.set(1,len,1);m.quaternion.setFromUnitVectors(up,d.normalize());};
+  const B=new THREE.Vector3(1.05,0,-.38); const base=new THREE.Mesh(new THREE.CylinderGeometry(.1,.12,.05,28),dark); base.position.set(B.x,.025,B.z); scene.add(base);
+  const arm={col:link(.055,white),up:link(.047,white),fo:link(.042,white),wr:link(.028,dark),j0:joint(.07,dark),j1:joint(.06,dark),j2:joint(.048,dark)};
+  const fL=new THREE.Mesh(new THREE.BoxGeometry(.012,.05,.03),dark), fR=fL.clone(); scene.add(fL,fR);
+  function solve(tip,open){
+    const S=B.clone().setY(H0), W=tip.clone().setY(tip.y+WR);
+    const flat=new THREE.Vector3(W.x-S.x,0,W.z-S.z),d=flat.length();flat.normalize();
+    const dy=W.y-S.y,D=Math.min(Math.hypot(d,dy),L1+L2-1e-3);
+    const phi=Math.atan2(dy,d)+Math.acos(Math.max(-1,Math.min(1,(L1*L1+D*D-L2*L2)/(2*L1*D))));
+    const E=S.clone().addScaledVector(flat,L1*Math.cos(phi)).add(new THREE.Vector3(0,L1*Math.sin(phi),0));
+    place(arm.col,B,S);place(arm.up,S,E);place(arm.fo,E,W);place(arm.wr,W,tip.clone().setY(tip.y+.03));
+    arm.j0.position.copy(S);arm.j1.position.copy(E);arm.j2.position.copy(W);
+    const g=.012+.03*open; fL.position.set(tip.x-g,tip.y,tip.z); fR.position.set(tip.x+g,tip.y,tip.z);
+  }
+  // 궤적 선
+  const N=260;
+  function trail(color){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(N*3),3));g.setDrawRange(0,0);const l=new THREE.Points(g,new THREE.PointsMaterial({color,size:.024}));scene.add(l);return {g,n:0};}
+  const trH=trail(0x0d5bd7), trR=trail(0x0f8a6c);
+  function push(tr,p){const a=tr.g.attributes.position.array; if(tr.n<N){tr.n++;}else{a.copyWithin(0,3);} a.set([p.x,p.y,p.z],(tr.n-1)*3); tr.g.attributes.position.needsUpdate=true; tr.g.setDrawRange(0,tr.n);}
+  // 라벨
+  const labs=[['사람 손 (SBS 영상에서 3D 복원)','#0d5bd7'],['로봇 손 (Isaac Sim)','#0f8a6c'],['→ 같은 경로로 번역 →','#7a4510']].map(([t,c])=>{const e=document.createElement('div');e.className='lab';e.textContent=t;e.style.color=c;wrap.appendChild(e);return e;});
+  const ph=document.getElementById('rtPhase');
+  // 카메라
+  let yaw=.0,pitch=.62,dist=2.6,drag=null,auto=true; const el=renderer.domElement;
+  el.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,yaw,pitch};auto=false;el.setPointerCapture(e.pointerId);});
+  el.addEventListener('pointermove',e=>{if(!drag)return;yaw=drag.yaw-(e.clientX-drag.x)*.008;pitch=Math.max(.2,Math.min(1.25,drag.pitch+(e.clientY-drag.y)*.006));});
+  el.addEventListener('pointerup',()=>{drag=null;setTimeout(()=>{if(!drag)auto=true;},3000);});
+  function resize(){const w=wrap.clientWidth,h=wrap.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;dist=2.5*Math.max(1,1.5/cam.aspect);cam.updateProjectionMatrix();}
+  new ResizeObserver(resize).observe(wrap); resize();
+  const v=new THREE.Vector3();
+  function proj(p,e){v.copy(p).project(cam);const w=wrap.clientWidth,h=wrap.clientHeight,hw=e.offsetWidth/2+6;e.style.left=Math.max(hw,Math.min(w-hw,(v.x*.5+.5)*w))+'px';e.style.top=((-v.y*.5+.5)*h-12)+'px';}
+  let vis=true; new IntersectionObserver(es=>{vis=es[0].isIntersecting;}).observe(wrap);
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, T=7; let t0=performance.now(), last=t0, prevT=0;
+  // 사람 손목 경로(도마 위): 접근 → 쥐기 → 앞뒤 칼질 → 놓기
+  function wristAt(t){
+    const cx=-.7, cz=.05;
+    if(t<1.2){const k=t/1.2;return [new THREE.Vector3(cx-.22+.12*k,.25-.13*k,cz-.1+.1*k),1-k];}
+    if(t<5.4){const k=(t-1.2)/4.2;return [new THREE.Vector3(cx-.1+.22*k,.12+.06*Math.abs(Math.sin(k*Math.PI*4)),cz),0];}
+    if(t<6.2){const k=(t-5.4)/.8;return [new THREE.Vector3(cx+.12,.12+.13*k,cz),k];}
+    return [new THREE.Vector3(cx+.12,.25,cz),1];
+  }
+  function frame(now){
+    requestAnimationFrame(frame); const dt=(now-last)/1000; last=now; if(!vis) return;
+    if(auto&&!reduce) yaw=Math.sin((now-t0)/6000)*.35;
+    const t=reduce?3:((now-t0)/1000)%T;
+    if(t<prevT){trH.n=0;trR.n=0;trH.g.setDrawRange(0,0);trR.g.setDrawRange(0,0);} prevT=t;
+    const [w,open]=wristAt(t);
+    hand.position.copy(w); fingers.forEach(g=>g.rotation.x=(1-open)*1.25); th.rotation.y=(1-open)*.9;
+    const tip=w.clone().add(new THREE.Vector3(1.4,-.05,0));   // 좌표 맞추기: 도마 → 작업대(평행 이동) — 실제로는 축척·회전까지 추정
+    solve(tip,open);
+    push(trH,w); push(trR,tip);
+    ph.textContent=t<1.2?'1 손을 뻗음':t<5.4?'2 쥐고 앞뒤로 움직임':t<6.2?'3 놓고 들어올림':'대기';
+    cam.position.set(dist*Math.sin(yaw)*Math.cos(pitch),.1+dist*Math.sin(pitch),dist*Math.cos(yaw)*Math.cos(pitch)); cam.lookAt(0,.1,0);
+    renderer.render(scene,cam);
+    proj(new THREE.Vector3(-.7,.33,-.1),labs[0]); proj(new THREE.Vector3(.75,.62,-.2),labs[1]); proj(new THREE.Vector3(0,.5,0),labs[2]);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// ── 크게 보기(영상·이미지)
+(function(){
+  const lb=document.getElementById('lb'), box=document.getElementById('lbin'); let back=null;
+  function open(el){
+    back=el; const src=el.dataset.zoom;
+    box.innerHTML=el.dataset.kind==='img'?`<img src="${src}" alt="">`:`<video src="${src}" controls autoplay muted loop playsinline></video>`;
+    const cap=el.querySelector('figcaption'); if(cap) box.insertAdjacentHTML('beforeend',`<p>${cap.innerHTML}</p>`);
+    lb.hidden=false; document.body.style.overflow='hidden'; document.getElementById('lbx').focus();
+  }
+  function close(){lb.hidden=true; box.innerHTML=''; document.body.style.overflow=''; if(back) back.focus();}
+  document.querySelectorAll('.zoomable').forEach(el=>{el.addEventListener('click',()=>open(el)); el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(el);}});});
+  document.getElementById('lbx').onclick=close;
+  lb.addEventListener('click',e=>{if(e.target===lb) close();});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&!lb.hidden) close();});
+})();
+</script>
+</body>
+</html>
