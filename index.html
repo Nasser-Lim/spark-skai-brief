@@ -284,12 +284,54 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
 .ur.ax .ub span{position:absolute;transform:translateX(-50%);font-size:12px;color:var(--mut);white-space:nowrap}
 .ur.ax .ub span:last-child{transform:translateX(-100%)}
 @media (max-width:640px){.ur{grid-template-columns:110px 1fr;gap:8px}.un{font-size:12.5px}}
+
+/* 배경 */
+.why3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.w{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:8px}
+.w h3{margin:0;font-size:17px}.w p{margin:0;font-size:14px;color:var(--ink2)}
+.wk{align-self:flex-start;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+.funnel{margin-top:16px}
+.fr{display:grid;grid-template-columns:200px 1fr 80px;gap:12px;align-items:center;margin-top:10px;font-size:14px}
+.fr b{font:700 15px var(--mono);text-align:right}
+.fb{height:18px;border-radius:6px;background:#eef1f3;overflow:hidden}.fb i{display:block;height:100%;background:#9fb3c2;border-radius:6px}
+.pc.ab .pf em{font-style:normal;font-size:12px;font-weight:700;color:#7a5a08;background:#fbf1d6;padding:3px 9px;border-radius:999px}
+/* 검증 순서 */
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.st3{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px}
+.st3 h3{margin:0;font-size:17px}.st3 p{margin:0;font-size:13.5px;color:var(--ink2)}
+.sn{font:700 12px var(--mono);color:var(--mut)}
+.cmpbars{display:flex;flex-direction:column;gap:6px}
+.cmpbars div{position:relative;display:grid;grid-template-columns:1fr;font-size:12.5px}
+.cmpbars i{display:block;height:20px;border-radius:5px;background:#d6dde3}
+.cmpbars .sb i{background:#bcd2f7}
+.cmpbars span{position:absolute;left:8px;top:2px;color:var(--ink)}
+.cmpbars b{position:absolute;right:8px;top:0;font:700 14px var(--mono);color:var(--sbs)}
+.mini{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:12.5px}
+.mini span{background:var(--robot-soft);color:#0b5a47;border-radius:7px;padding:5px 8px}.mini i{font-style:normal;color:var(--mut)}
+.gates{display:flex;flex-direction:column;gap:8px}
+.gates div{display:grid;grid-template-columns:280px 24px 1fr;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px}
+.gates i{font-style:normal;color:var(--mut);text-align:center}
+.gk{font-weight:700;font-size:13.5px;padding:3px 9px;border-radius:8px;justify-self:start}
+.gk.ok2{background:var(--robot-soft);color:var(--robot)}.gk.mid{background:var(--warm-soft);color:#9a4f0c}.gk.bad2{background:var(--bad-soft);color:var(--bad)}
+/* 역할 */
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.rl{border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:baseline;font-size:14px}
+.rl b{font:700 14px var(--mono)}.rl.s{background:var(--sbs-soft)}.rl.s b{color:var(--sbs)}.rl.k{background:var(--robot-soft)}.rl.k b{color:var(--robot)}
+/* 기대·위험 */
+.ol2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ol{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px}
+.ol.good{border-top:5px solid var(--robot)}.ol.risk{border-top:5px solid var(--warm)}
+.ol h3{margin:0 0 4px}
+.ol div{display:flex;flex-direction:column;gap:2px;padding:9px 12px;border-radius:10px;background:#f5f7f8}
+.ol div b{font-size:14.5px}.ol div span{font-size:13.5px;color:var(--ink2)}
+@media (max-width:980px){.why3,.steps3{grid-template-columns:1fr 1fr}.gates div{grid-template-columns:1fr;gap:4px}.gates i{display:none}}
+@media (max-width:640px){.why3,.steps3,.roles,.ol2{grid-template-columns:1fr}.fr{grid-template-columns:110px 1fr 64px;font-size:12.5px}.rl{flex-direction:column;gap:2px}}
 </style>
 </head>
 <body>
 <nav><div class="wrap">
   <b>SBS × SKAI</b>
-  <a href="#idea">아이디어</a><a href="#flow">워크플로우</a><a href="#task">로봇 과제 3D</a><a href="#result">실험 결과</a><a href="#todo">남은 과제</a><a href="#synth">합성 증강</a><a href="#retarget">리타게팅</a><a href="#use">두 가지 쓰임새</a><a href="#collab">협업 포인트</a>
+  <a href="#why">배경</a><a href="#use">두 갈래</a><a href="#idea">지금 실험</a><a href="#flow">워크플로우</a><a href="#task">로봇 과제 3D</a><a href="#result">최신 결과</a><a href="#synth">합성</a><a href="#retarget">리타게팅</a><a href="#plan">검증 순서</a><a href="#collab">협업</a><a href="#outlook">기대·위험</a>
 </div></nav>
 
 <header class="wrap">
@@ -309,8 +351,50 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
   </div>
 </header>
 
+<section id="why"><div class="wrap">
+  <p class="eyebrow">01 · 배경</p>
+  <h2>로봇은 사람 손을 보고 배우고 싶어 한다</h2>
+  <p class="sub">로봇 시연 데이터는 비싸서 사람 손 영상을 찾지만, 흔한 손 영상은 이미 넘쳐납니다.</p>
+  <div class="why3">
+    <div class="w"><span class="wk" style="background:var(--sbs-soft);color:var(--sbs)">수요</span><h3>로봇 시연은 비싸고 느리다</h3><p>사람이 로봇을 직접 조종해 모으는 시연은 시간당 비용이 큽니다. 로봇 파운데이션 모델 기업들이 사람 손 영상을 대안으로 찾는 이유입니다.</p></div>
+    <div class="w"><span class="wk" style="background:var(--bad-soft);color:var(--bad)">공급</span><h3>1인칭 손 영상은 이미 흔하다</h3><p>대규모 무료 공개 데이터가 잇따라 나왔습니다. 일반 손 영상은 <b>양으로는 경쟁할 수 없습니다.</b></p></div>
+    <div class="w"><span class="wk" style="background:var(--robot-soft);color:var(--robot)">기회</span><h3>흔하지 않은 조건이 값을 가진다</h3><p>고정 화각의 3인칭, 한국 실환경, 다양한 실제 작업, 권리가 정리된 영상. 방송 아카이브의 강점입니다.</p></div>
+  </div>
+  <div class="card funnel">
+    <h3>그런데 조건에 맞는 방송 영상은 드물다</h3>
+    <div class="fr"><span>검색 후보</span><div class="fb"><i style="width:100%"></i></div><b>약 1.7만</b></div>
+    <div class="fr"><span>고정 화각 · 양손 · 과업 일치</span><div class="fb"><i style="width:5.1%;background:var(--robot)"></i></div><b>869개</b></div>
+    <p class="one">특정 과업 76개 기준 한 번의 검색 결과입니다(약 5%). 아카이브 전체 수치는 아닙니다.</p>
+  </div>
+</div></section>
+
+<section id="use"><div class="wrap">
+  <p class="eyebrow">02 · SBS 영상을 쓰는 두 갈래</p>
+  <h2>영상 AI를 키우거나, 로봇 행동을 가르치거나</h2>
+  <p class="sub">영상 AI의 예측력을 키우는 데이터와 로봇의 행동을 가르치는 데이터는 필요한 것이 다릅니다.</p>
+  <div class="uses">
+    <div class="use u1">
+      <div class="uh"><span class="ut">A · 영상 AI 예측력용</span><b>“다음 장면을 더 잘 맞히게”</b></div>
+      <div class="need"><span>영상</span><i>+</i><span>설명문</span></div>
+      <p>새롭고 <b>물리적으로 맞는 움직임</b>이 들어 있어야 가치가 있습니다. 겉모습만 바꾸면 배울 게 적고, AI가 만든 영상을 다시 AI에 먹이면 오히려 나빠질 수 있습니다.</p>
+      <div class="refs">해외 사례 · Aether(합성만으로 학습해 실제에 일반화) · Dexterous World Models(합성+실제 손 영상)</div>
+    </div>
+    <div class="use u2">
+      <div class="uh"><span class="ut">B · 로봇 정책용</span><b>“이럴 땐 팔을 이렇게 움직여라”</b></div>
+      <div class="need"><span>로봇 화면</span><i>+</i><span>로봇 상태</span><i>+</i><span class="must">행동 정답</span></div>
+      <p><b>행동 정답</b>이 반드시 필요합니다. 그래서 리타게팅으로 동작을 옮기고, 시뮬레이터에서 성공한 것만 씁니다. 해외에서 효과가 가장 많이 보고된 쓰임새입니다.</p>
+      <div class="refs">해외 사례 · Phantom·Masquerade(사람 팔→로봇 팔) · RoboTransfer(배경·물체 교체) · DreamGen(생성 영상→행동 추정)</div>
+    </div>
+  </div>
+  <div class="pathcmp">
+    <div class="pc"><span class="pt" style="color:var(--sbs)">A 경로</span><div class="pf"><span>SBS 영상 (+합성)</span><i>→</i><span>영상 AI 후학습</span><i>→</i><span class="gl">예측 오차 ↓ ?</span></div></div>
+    <div class="pc"><span class="pt" style="color:var(--robot)">B 경로</span><div class="pf"><span>SBS 영상</span><i>→</i><span>리타게팅</span><i>→</i><span>시뮬레이터 확인</span><i>→</i><span>합성으로 늘리기</span><i>→</i><span>로봇 정책</span><i>→</i><span class="gl">성공률 ↑ ?</span></div></div>
+    <div class="pc ab"><span class="pt" style="color:var(--gold)">A→B</span><div class="pf"><span>SBS 영상</span><i>→</i><span>영상 AI 후학습</span><i>→</i><span>로봇 정책의 출발점</span><i>→</i><span>로봇 시연 학습</span><i>→</i><span class="gl">성공률 ↑ ?</span><em>지금 진행 중인 실험</em></div></div>
+  </div>
+</div></section>
+
 <section id="idea"><div class="wrap">
-  <p class="eyebrow">01 · 아이디어</p>
+  <p class="eyebrow">03 · 지금 하는 실험 (A→B)</p>
   <h2>보는 것과 해보는 것을 나눠서 배운다</h2>
   <p class="sub">영상에서는 세상이 움직이는 방식을, 시뮬레이터에서는 로봇을 움직이는 법을 배웁니다.</p>
   <div class="stages">
@@ -337,7 +421,7 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
 </div></section>
 
 <section id="flow"><div class="wrap">
-  <p class="eyebrow">02 · 워크플로우</p>
+  <p class="eyebrow">04 · 워크플로우</p>
   <h2>전체 흐름과 지금 위치</h2>
   <p class="sub">파란색은 SBS 영상, 초록색은 시뮬레이션 로봇 쪽이며 마지막에 만나 비교됩니다.</p>
   <div class="flow">
@@ -363,7 +447,7 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
 </div></section>
 
 <section id="task"><div class="wrap">
-  <p class="eyebrow">03 · 로봇 과제 (3D)</p>
+  <p class="eyebrow">05 · 로봇 과제 (3D)</p>
   <h2>첫 양손 과제: 한 손은 누르고, 다른 손은 도구로 따라가기</h2>
   <p class="sub">SBS에 흔한 ‘한 손으로 잡고 칼질하기’를 단단한 블록 위 도구 따라가기로 단순화했습니다.</p>
   <div class="three">
@@ -395,7 +479,7 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
 </div></section>
 
 <section id="result"><div class="wrap">
-  <p class="eyebrow">04 · 최신 결과</p>
+  <p class="eyebrow">06 · 최신 결과</p>
   <h2>지금까지 확인한 것</h2>
   <p class="sub">가장 최근 실험(2026-10-20) 기준입니다.</p>
   <div class="res">
@@ -424,23 +508,11 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
   
 </div></section>
 
-<section id="todo"><div class="wrap">
-  <p class="eyebrow">05 · 남은 과제</p>
-  <h2>최종 질문까지 남은 길</h2>
-  <div class="road">
-    <div class="rstep"><span class="st done">완료</span><b>SBS 양손 영상 선별</b><span>869개 클립, 76개 과업 분류</span></div>
-    <div class="rstep"><span class="st done">완료</span><b>영상 AI 후학습</b><span>작은 개선 신호, 3번 반복 확인</span></div>
-    <div class="rstep"><span class="st doing">진행 중</span><b>모범 시연 통과</b><span>완주율 85% → 90%, 성공 시연 4개 이상</span></div>
-    <div class="rstep"><span class="st todo">다음</span><b>로봇 정책 학습</b><span>기본 AI / SBS AI에서 각각 같은 시연으로 학습</span></div>
-    <div class="rstep"><span class="st todo">최종</span><b>성공률 비교</b><span>처음 보는 초기 상태에서 반복 시험</span></div>
-  </div>
-  <div class="extra"><b>함께 풀어야 할 숙제.</b> 다른 영상 대조군으로 “SBS라서”를 증명하기 · 단단한 블록에서 실제로 잘리는 재료로 · 화면 속 물체와 똑같은 가상 물체 · 영상과 시뮬레이션의 외형 차이 줄이기 · <b>양손 영상 자체를 더 늘리기</b></div>
-</div></section>
-
 <section id="synth"><div class="wrap">
-  <p class="eyebrow">06 · 합성 증강 아이디어</p>
+  <p class="eyebrow">07 · 합성으로 늘리기</p>
   <h2>양손 조작 영상 1개를 여러 개로 늘릴 수 있을까?</h2>
   <p class="sub">손과 물체의 움직임은 지키고, 나머지를 바꾸거나 새로 만드는 다섯 가지 방법입니다.</p>
+  <div class="key" style="margin:0 0 16px">사람 손 영상 합성 기법은 있지만, <b>방송 영상 조건(카메라 한 대 · 3인칭 · 편집 컷 · 저해상도)에서 효과를 검증한 사례는 없습니다.</b> 원본의 가치를 먼저 확인한 뒤 따로 잽니다.</div>
   <div class="spectrum" aria-hidden="true"><span>원본에 가깝게</span><i></i><span>새로 만들기</span></div>
   <div class="synth">
     <div class="sy">
@@ -492,10 +564,16 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
     <div><b>4 효과 측정</b><span>같은 양에서 원본 반복 vs 합성 추가 비교</span></div>
   </div>
   <p class="one" style="margin-top:12px">주의: 손과 물체의 접촉이 어긋난 합성은 오히려 해가 됩니다. 원본→파생 계보와 권리 범위를 함께 기록합니다.</p>
+  <div class="card" style="margin-top:16px">
+    <h3>다섯 가지 합성 방법, 쓰임새별 기대 가치</h3>
+    <div class="legend"><span><i style="background:#0d5bd7"></i>A 영상 AI 예측력용</span><span><i style="background:#0f8a6c"></i>B 로봇 정책용</span></div>
+    <div id="useChart" class="uchart" role="img" aria-label="합성 방법 여섯 가지의 쓰임새별 기대 가치 막대그래프"></div>
+    <p class="one">공개 연구 결과를 바탕으로 한 SBS의 정성 판단입니다(측정값 아님). ⑤는 예측력용으로는 순환 학습 위험이 있습니다.</p>
+  </div>
 </div></section>
 
 <section id="retarget"><div class="wrap">
-  <p class="eyebrow">07 · 또 하나의 합성 방법: 리타게팅</p>
+  <p class="eyebrow">08 · 리타게팅 (B 갈래의 핵심)</p>
   <h2>사람 손 움직임을 로봇 손 움직임으로 “번역”하기</h2>
   <p class="sub">영상 속 손목 경로를 로봇 손끝 경로로 옮겨, 로봇이 직접 해본 연습 데이터를 만듭니다.</p>
   <div class="three">
@@ -526,38 +604,42 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
   <p class="one">SBS는 카메라 한 대라 거리를 도마 같은 기준 물체로 추정하고, 힘은 영상에 안 보여 시뮬레이터에서 맞춥니다.</p>
 </div></section>
 
-<section id="use"><div class="wrap">
-  <p class="eyebrow">08 · 두 가지 쓰임새</p>
-  <h2>같은 합성 데이터, 어디에 쓰느냐에 따라 가치가 다르다</h2>
-  <p class="sub">영상 AI의 예측력을 키우는 데이터와 로봇의 행동을 가르치는 데이터는 필요한 것이 다릅니다.</p>
-  <div class="uses">
-    <div class="use u1">
-      <div class="uh"><span class="ut">A · 영상 AI 예측력용</span><b>“다음 장면을 더 잘 맞히게”</b></div>
-      <div class="need"><span>영상</span><i>+</i><span>설명문</span></div>
-      <p>새롭고 <b>물리적으로 맞는 움직임</b>이 들어 있어야 가치가 있습니다. 겉모습만 바꾸면 배울 게 적고, AI가 만든 영상을 다시 AI에 먹이면 오히려 나빠질 수 있습니다.</p>
-      <div class="refs">해외 사례 · Aether(합성만으로 학습해 실제에 일반화) · Dexterous World Models(합성+실제 손 영상)</div>
-    </div>
-    <div class="use u2">
-      <div class="uh"><span class="ut">B · 로봇 정책용</span><b>“이럴 땐 팔을 이렇게 움직여라”</b></div>
-      <div class="need"><span>로봇 화면</span><i>+</i><span>로봇 상태</span><i>+</i><span class="must">행동 정답</span></div>
-      <p><b>행동 정답</b>이 반드시 필요합니다. 그래서 리타게팅으로 동작을 옮기고, 시뮬레이터에서 성공한 것만 씁니다. 해외에서 효과가 가장 많이 보고된 쓰임새입니다.</p>
-      <div class="refs">해외 사례 · Phantom·Masquerade(사람 팔→로봇 팔) · RoboTransfer(배경·물체 교체) · DreamGen(생성 영상→행동 추정)</div>
-    </div>
+<section id="plan"><div class="wrap">
+  <p class="eyebrow">09 · 검증 순서</p>
+  <h2>원본의 가치부터, 합성은 그다음</h2>
+  <p class="sub">같은 양의 다른 데이터와 비교해 ‘SBS라서’ 좋아지는지부터 확인합니다.</p>
+  <div class="steps3">
+    <div class="st3"><span class="sn">1 · A 갈래</span><h3>영상 AI에서 원본 가치</h3>
+      <div class="cmpbars"><div><i style="width:55%"></i><span>합성만</span></div><div><i style="width:70%"></i><span>+ 공개 손 영상</span></div><div class="sb"><i style="width:70%"></i><span>+ SBS 같은 양</span><b>?</b></div></div>
+      <p>학습에 안 쓴 실제 고정 카메라 손 영상에서, 손 움직임이 만드는 장면 변화를 얼마나 맞히는지 비교합니다.</p></div>
+    <div class="st3"><span class="sn">1 · B 갈래</span><h3>로봇에서 원본 가치</h3>
+      <div class="mini"><span>모범 시연 통과</span><i>→</i><span>SBS 리타게팅 수율</span><i>→</i><span>성공률 비교</span></div>
+      <p>같은 수의 시연으로 <b>교사 시연만</b> vs <b>교사 + SBS에서 뽑은 시연</b>을 학습시켜 성공률을 비교합니다.</p></div>
+    <div class="st3"><span class="sn">2 · 공통</span><h3>합성의 효과</h3>
+      <div class="cmpbars"><div><i style="width:60%"></i><span>원본 반복</span></div><div class="sb"><i style="width:60%"></i><span>원본 + 합성</span><b>?</b></div></div>
+      <p>같은 학습량에서 비교하고, 평가는 반드시 실제 영상이나 처음 보는 상황으로 합니다.</p></div>
   </div>
-  <div class="card" style="margin-top:16px">
-    <h3>다섯 가지 합성 방법, 쓰임새별 기대 가치</h3>
-    <div class="legend"><span><i style="background:#0d5bd7"></i>A 영상 AI 예측력용</span><span><i style="background:#0f8a6c"></i>B 로봇 정책용</span></div>
-    <div id="useChart" class="uchart" role="img" aria-label="합성 방법 여섯 가지의 쓰임새별 기대 가치 막대그래프"></div>
-    <p class="one">공개 연구 결과를 바탕으로 한 SBS의 정성 판단입니다(측정값 아님). ⑤는 예측력용으로는 순환 학습 위험이 있습니다.</p>
+  <p class="note" style="margin:8px 0 0">막대는 비교 구조를 보여주는 그림이며 결과값이 아닙니다.</p>
+  <h3 style="margin:28px 0 12px">지금 어디까지 왔나</h3>
+  <div class="road">
+    <div class="rstep"><span class="st done">완료</span><b>SBS 양손 영상 선별</b><span>869개 클립, 76개 과업 분류</span></div>
+    <div class="rstep"><span class="st done">완료</span><b>영상 AI 후학습</b><span>작은 개선 신호, 3번 반복 확인</span></div>
+    <div class="rstep"><span class="st doing">진행 중</span><b>모범 시연 통과</b><span>완주율 85% → 90%, 성공 시연 4개 이상</span></div>
+    <div class="rstep"><span class="st todo">다음</span><b>로봇 정책 학습</b><span>기본 AI / SBS AI에서 각각 같은 시연으로 학습</span></div>
+    <div class="rstep"><span class="st todo">최종</span><b>성공률 비교</b><span>처음 보는 초기 상태에서 반복 시험</span></div>
   </div>
-  <div class="pathcmp">
-    <div class="pc"><span class="pt" style="color:var(--sbs)">A 경로</span><div class="pf"><span>SBS 클립</span><i>→</i><span>합성 ①②③④</span><i>→</i><span>영상 AI 후학습</span><i>→</i><span class="gl">예측 오차 ↓ ?</span></div></div>
-    <div class="pc"><span class="pt" style="color:var(--robot)">B 경로</span><div class="pf"><span>SBS 클립</span><i>→</i><span>리타게팅 + ④</span><i>→</i><span>시뮬레이터 확인</span><i>→</i><span>①②③ 늘리기</span><i>→</i><span>로봇 정책</span><i>→</i><span class="gl">성공률 ↑ ?</span></div></div>
+  <h3 style="margin:28px 0 12px">결과에 따라 다음 행동</h3>
+  <div class="gates">
+    <div><span class="gk ok2">SBS가 같은 양의 공개 영상보다 낫다</span><i>→</i><span>합성 단계로 진행, 클립 확보 확대</span></div>
+    <div><span class="gk mid">비슷하다</span><i>→</i><span>양이 아닌 조건 가치(한국 실환경·권리)로 포지셔닝, 평가용 데이터셋 검토</span></div>
+    <div><span class="gk bad2">차이가 없거나 나쁘다</span><i>→</i><span>원인 진단(해상도·컷·손 가림·과업 정합) 후 선별 기준 수정</span></div>
+    <div><span class="gk mid">리타게팅 수율이 매우 낮다</span><i>→</i><span>B 갈래 보류, A 갈래 집중. 복원 잘 되는 조건을 선별 기준에 반영</span></div>
+    <div><span class="gk ok2">합성이 원본 반복보다 낫다</span><i>→</i><span>합성 파이프라인 정식화, 협업 본격화</span></div>
   </div>
 </div></section>
 
 <section id="collab"><div class="wrap">
-  <p class="eyebrow">09 · 협업 포인트</p>
+  <p class="eyebrow">10 · 협업 포인트</p>
   <h2>SBS가 가진 것과 SKAI가 가진 것이 맞물리는 곳</h2>
   <p class="sub">실제 사람이 일하는 방송 영상과 실물을 3D로 옮기고 합성하는 기술이 만나는 지점입니다.</p>
   <div class="match">
@@ -600,6 +682,28 @@ footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
     </div>
       </div>
   
+  <div class="roles">
+    <div class="rl s"><b>SBS</b><span>영상 선별 · 학습 형식 변환 · 비교 실험 설계와 평가 · 권리 관리</span></div>
+    <div class="rl k"><b>SKAI</b><span>물체·작업대 3D 자산 · 장면 디지털 트윈 · 재질·접촉 물성 · 합성 렌더링</span></div>
+  </div>
+</div></section>
+
+<section id="outlook"><div class="wrap">
+  <p class="eyebrow">11 · 기대 결과와 위험</p>
+  <h2>잘 되면 남는 것, 처음부터 조심할 것</h2>
+  <p class="sub">결과물과 위험을 함께 관리합니다.</p>
+  <div class="ol2">
+    <div class="ol good"><h3>잘 되면 남는 것</h3>
+      <div><b>검증된 데이터</b><span>로봇 학습 효과가 확인된 방송 유래 양손 조작 데이터와 그 근거</span></div>
+      <div><b>SBS × SKAI 합성 파이프라인</b><span>방송 영상 → 3D → 증강. 실물 기반 Real-to-Sim 3D 자산으로도 이어짐</span></div>
+      <div><b>비어 있던 질문의 답</b><span>“3인칭 단안 방송 영상도 손 조작 학습 데이터가 되는가”</span></div>
+    </div>
+    <div class="ol risk"><h3>처음부터 조심할 것</h3>
+      <div><b>권리와 계보</b><span>외부 GPU 전송·파트너 공유 범위를 매번 정하고, 합성본도 원본에서 나온 파생물로 기록</span></div>
+      <div><b>비용</b><span>작은 비교부터. 큰 모델 학습은 공개 가중치에서 짧게 추가 학습하는 방식으로 시작</span></div>
+      <div><b>해석 과장</b><span>영상 복원 점수 · 시뮬레이터 성공률 · 실제 로봇 성능은 서로 다른 것</span></div>
+    </div>
+  </div>
 </div></section>
 
 <div id="lb" class="lb" hidden role="dialog" aria-modal="true" aria-label="크게 보기"><button class="lbx" id="lbx" aria-label="닫기">×</button><div class="lbin" id="lbin"></div></div>
